@@ -138,7 +138,7 @@ If you are providing your own pre-computed AI features (i.e., not using our feat
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the GPL v3 License - see the `LICENSE` file for details.
 
 
 ## 📧 Contact
