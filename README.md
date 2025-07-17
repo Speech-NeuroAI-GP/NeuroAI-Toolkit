@@ -16,12 +16,14 @@ Whether you're investigating how the brain processes speech, language, or visual
 ## ✨ Features at a Glance
 
 `NeuroAI-Toolkit` is meticulously designed to support a wide range of analytical needs in NeuroAI research, offering modules for:
+* **Unified Analysis Pipeline:**
+    * Execute the entire fMRI voxel-wise modeling workflow from data cleaning to visualization with a single, configurable function.
+    * Streamlines research, enhances reproducibility, and minimizes manual intervention across multiple analysis stages.
 
 * **Deep Feature Extraction:**
     * Effortlessly extract rich, high-dimensional features from state-of-the-art AI models across multiple modalities.
     * **Supported Models:**
         * **Speech:** OpenAI Whisper Encoder (all checkpoints), ECAPA-TDNN
-        * **Language:** GPT (various versions via Hugging Face Transformers)
          * **Language:** OpenAI Whisper Decoder (all checkpoints)
         * **Vision:** ResNet50
          * **Vision-Language interaction:** CLIP (all checkpoints)
@@ -36,7 +38,7 @@ Whether you're investigating how the brain processes speech, language, or visual
     * Facilitates granular analysis of representational mappings across the brain.
 
 * **Brain Parcellation & Score Mapping:**
-    * Tools to parcellate and visualize brain scores derived from voxelwise modeling, allowing for region-of-interest (ROI) level interpretation.
+    * Tools to parcellate and visualize brain scores (e.g., R-squared maps) using established atlases (e.g., Yan et al. 2017 Kong et al. 2019 parcellation), allowing for region-of-interest (ROI) level interpretation.
     * Understand the spatial distribution of representational information.
 
 * **Representational Similarity Analysis (RSA):**
