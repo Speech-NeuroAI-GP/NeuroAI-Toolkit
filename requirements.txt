@@ -1,7 +1,7 @@
 cleaning==1.0.0
 dcor==0.6
 h5py==3.12.1
-hcp_utils==0.1.0
+git+https://github.com/GasserElbanna/hcp-utils.git@master
 himalaya==0.4.6
 joblib==1.4.2
 librosa==0.10.2.post1
