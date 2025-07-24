@@ -2,8 +2,8 @@ from statsmodels.stats.multitest import fdrcorrection
 from scipy.stats import ttest_1samp
 import numpy as np
 from typing import  List
-from utils import get_subjects_results
-from parcellation import parcellate_brain_by_network
+from neuroai.utils import get_subjects_results
+from neuroai.parcellation import parcellate_brain_by_network
 
 
 def _perform_t_test_and_fdr_correction(data_to_test: np.ndarray, alpha: float = 0.05) -> tuple[np.ndarray, np.ndarray]:

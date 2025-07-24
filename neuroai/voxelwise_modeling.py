@@ -1,4 +1,4 @@
-from utils import *
+from neuroai.utils import *
 import matplotlib.pyplot as plt
 import joblib
 from sklearn.model_selection import check_cv

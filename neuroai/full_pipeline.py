@@ -4,18 +4,16 @@ import h5py # For checking feature file content
 from typing import List, Optional, Union, Any
 
 # Import functions from your existing scripts
-from fmri_cleaning import run_cleaning_pipeline
-from feature_extraction import extract_features # Assuming feature_extraction.py
-from voxelwise_modeling import generate_scores_for_specific_model_across_subjects, render_averaged_scores # Assuming voxelwise_modeling.py
-from stats import get_significant_model_scores # Assuming stats.py
-from parcellation import plot_parcellation_of_peak_intensity_regions
-from utils import render_scores # Assuming utils.py, which contains render_scores
+from neuroai.fmri_cleaning import run_cleaning_pipeline
+from neuroai.feature_extraction import extract_features # Assuming feature_extraction.py
+from neuroai.voxelwise_modeling import generate_scores_for_specific_model_across_subjects, render_averaged_scores # Assuming voxelwise_modeling.py
+from neuroai.stats import get_significant_model_scores # Assuming stats.py
+from neuroai.parcellation import plot_parcellation_of_peak_intensity_regions
+from neuroai.utils import render_scores # Assuming utils.py, which contains render_scores
 
 def run_full_voxelwise_pipeline(
     bids_data_root_dir: str,
     output_base_dir: str,
-    left_surface_template: str,
-    right_surface_template: str,
     precomputed_features_h5_path: Optional[str] = None,
     stimuli_base_dir: Optional[str] = None,
     ai_model_id: Optional[str] = None,
@@ -28,6 +26,8 @@ def run_full_voxelwise_pipeline(
     perform_cleaning: bool = False, # Flag to enable/disable cleaning
     selected_confounds: Optional[List[str]] = None,
     smoothing_kernel_size: Optional[int] = None,
+    left_surface_template: str = None,
+    right_surface_template: str = None,
     statistical_significance_testing: bool = True,
     significance_alpha: float = 0.05,
     plot_threshold: Union[float, str] = "90%",
@@ -60,13 +60,6 @@ def run_full_voxelwise_pipeline(
         extracted features, voxel-wise model scores, and plots) will be saved.
         Structure: `output_base_dir/cleaned_data/`, `output_base_dir/features/`,
         `output_base_dir/voxelwise_results/<model_id>/`.
-    left_surface_template : str
-        Absolute path to the left hemisphere GIFTI surface file (e.g., a FreeSurfer
-        `fsaverage`/`conte69` surface, or HCP-Minn `fs_LR.32k` surface).
-        Required for smoothing if `smoothing_kernel_size` is provided.
-    right_surface_template : str
-        Absolute path to the right hemisphere GIFTI surface file, similar to `left_surface_template`.
-        Required for smoothing if `smoothing_kernel_size` is provided.
     precomputed_features_h5_path : str, optional
         Path to an existing HDF5 (.h5) file containing precomputed AI features.
         If provided, `stimuli_base_dir`, `ai_model_id`, `ai_layer_name`,
@@ -105,6 +98,13 @@ def run_full_voxelwise_pipeline(
     smoothing_kernel_size : int, optional
         FWHM smoothing kernel size in millimeters. Only relevant if `perform_cleaning`
         is True. If None, no spatial smoothing.
+    left_surface_template : str
+        Absolute path to the left hemisphere GIFTI surface file (e.g., a FreeSurfer
+        `fsaverage`/`conte69` surface, or HCP-Minn `fs_LR.32k` surface).
+        Required for smoothing if `smoothing_kernel_size` is provided.
+    right_surface_template : str
+        Absolute path to the right hemisphere GIFTI surface file, similar to `left_surface_template`.
+        Required for smoothing if `smoothing_kernel_size` is provided.
     statistical_significance_testing : bool, optional
         If True, `get_significant_model_scores` will be used to identify and plot
         only statistically significant voxels. If False, the averaged scores
@@ -263,12 +263,12 @@ def run_full_voxelwise_pipeline(
             np.save(significant_scores_path, significant_scores_map)
             print(f"  Statistically significant scores saved to: {significant_scores_path}")
 
-            print(f"  Plotting significant regions parcellated by network (threshold: {plot_threshold})...")
-            parcellated_view = plot_parcellation_of_peak_intensity_regions(
-                data=significant_scores_map,
-                threshold=plot_threshold
-            )
-            print("  Interactive parcellation plot generated (display in notebook/browser).")
+            # print(f"  Plotting significant regions parcellated by network (threshold: {plot_threshold})...")
+            # parcellated_view = plot_parcellation_of_peak_intensity_regions(
+            #     data=significant_scores_map,
+            #     threshold=plot_threshold
+            # )
+            # print("  Interactive parcellation plot generated (display in notebook/browser).")
             # You might want to save this HTML view if not in a notebook
             # parcellated_view.save_as_html(os.path.join(model_results_specific_dir, 'significant_parcellated_regions.html'))
 
@@ -301,19 +301,19 @@ def run_full_voxelwise_pipeline(
             print("  Interactive surface plot of averaged scores generated (display in notebook/browser).")
             # averaged_rendered_view.save_as_html(os.path.join(model_results_specific_dir, 'averaged_scores_render.html'))
 
-            # Load the saved averaged scores to pass to parcellation plot
-            average_scores_path = os.path.join(model_results_specific_dir, 'average_scores.npy')
-            if os.path.exists(average_scores_path):
-                averaged_scores_data = np.load(average_scores_path)
-                print(f"  Plotting averaged regions parcellated by network (threshold: {plot_threshold})...")
-                parcellated_averaged_view = plot_parcellation_of_peak_intensity_regions(
-                    data=averaged_scores_data,
-                    threshold=plot_threshold
-                )
-                print("  Interactive parcellation plot of averaged scores generated (display in notebook/browser).")
-                # parcellated_averaged_view.save_as_html(os.path.join(model_results_specific_dir, 'averaged_parcellated_regions.html'))
-            else:
-                print(f"Warning: 'average_scores.npy' not found at {average_scores_path}. Cannot plot parcellation of averaged scores.")
+            # # Load the saved averaged scores to pass to parcellation plot
+            # average_scores_path = os.path.join(model_results_specific_dir, 'average_scores.npy')
+            # if os.path.exists(average_scores_path):
+            #     averaged_scores_data = np.load(average_scores_path)
+            #     print(f"  Plotting averaged regions parcellated by network (threshold: {plot_threshold})...")
+            #     parcellated_averaged_view = plot_parcellation_of_peak_intensity_regions(
+            #         data=averaged_scores_data,
+            #         threshold=plot_threshold
+            #     )
+            #     print("  Interactive parcellation plot of averaged scores generated (display in notebook/browser).")
+            #     # parcellated_averaged_view.save_as_html(os.path.join(model_results_specific_dir, 'averaged_parcellated_regions.html'))
+            # else:
+            #     print(f"Warning: 'average_scores.npy' not found at {average_scores_path}. Cannot plot parcellation of averaged scores.")
 
         except Exception as e:
             print(f"Error during rendering averaged scores or parcellation: {e}")

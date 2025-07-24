@@ -28,31 +28,36 @@ def _check_wb_command_exists():
             f"You're running on {system}, which is currently not supported."
         )
 
-    # Check PATH first
+    # 1. Check PATH
     WB_COMMAND_PATH = shutil.which("wb_command")
 
+    # 2. Fallback: Check default install path
     if WB_COMMAND_PATH is None:
-        # Check env var
-        env_path = os.environ.get("WB_COMMAND_PATH")
-        if env_path and os.path.exists(env_path) and os.path.isfile(env_path):
-            WB_COMMAND_PATH = env_path
+        default_path = "/usr/local/workbench/bin_linux64/wb_command"
+        if os.path.exists(default_path) and os.access(default_path, os.X_OK):
+            WB_COMMAND_PATH = default_path
         else:
-            raise FileNotFoundError(
-                "Connectome Workbench (wb_command) not found.\n"
-                "Please install Workbench manually and ensure:\n"
-                "- 'wb_command' is in your system's PATH, or\n"
-                "- Set WB_COMMAND_PATH to its full path\n"
-                "Guide: https://humanconnectome.org/software/connectome-workbench"
-            )
+            # 3. Check env var
+            env_path = os.environ.get("WB_COMMAND_PATH")
+            if env_path and os.path.exists(env_path) and os.path.isfile(env_path):
+                WB_COMMAND_PATH = env_path
+            else:
+                raise FileNotFoundError(
+                    "Connectome Workbench (wb_command) not found.\n"
+                    "Please install Workbench manually and ensure:\n"
+                    "- 'wb_command' is in your system's PATH, or\n"
+                    "- Set WB_COMMAND_PATH to its full path\n"
+                    "Guide: https://humanconnectome.org/software/connectome-workbench"
+                )
 
     if not os.access(WB_COMMAND_PATH, os.X_OK):
         raise PermissionError(
             f"Connectome Workbench at {WB_COMMAND_PATH} is not executable.\n"
             f"Run: chmod +x {WB_COMMAND_PATH}"
         )
-    print(f"Using wb_command from: {WB_COMMAND_PATH}")
-    return True
 
+    print(f"[INFO] Using wb_command from: {WB_COMMAND_PATH}")
+    return True
 
 def select_confounds(confound_file: str, selected_confounds: list[str]) -> pd.DataFrame:
     """

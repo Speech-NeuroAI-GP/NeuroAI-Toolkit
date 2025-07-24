@@ -443,4 +443,3 @@ def extract_features(
 
     print(f"\nFeature extraction complete. Output saved to: {output_file_path}")
     
-extract_features(bold_data_root_dir= r"E:\year5\GP\padded_stimuli\New folder", stimuli_base_dir= r"E:\year5\GP\padded_stimuli", output_file_path= r"E:\year5\GP\padded_stimuli\new\ecapa.h5", model_id= "ecapa-tdnn", tr= 2, task_of_interest= "inamoment")

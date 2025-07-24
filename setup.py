@@ -6,7 +6,7 @@ setup(
     install_requires=[
         'dcor==0.6',
         'h5py==3.12.1',
-        'hcp-utils @ git+https://github.com/GasserElbanna/hcp-utils.git@master',
+        'hcp-utils',
         'himalaya==0.4.6',
         'joblib==1.4.2',
         'librosa==0.10.2.post1',

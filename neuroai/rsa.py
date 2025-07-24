@@ -6,10 +6,10 @@ import nibabel as nib
 import h5py
 import os
 import glob
-from utils import get_stimuli_features_per_bold_signal
-from parcellation import parcellate_brain_by_network
-from stats import get_significant_voxels_from_arrays
-from feature_extraction import extract_features 
+from neuroai.utils import get_stimuli_features_per_bold_signal
+from neuroai.parcellation import parcellate_brain_by_network
+from neuroai.stats import get_significant_voxels_from_arrays
+from neuroai.feature_extraction import extract_features 
 
 
 def compute_distance_correlation(distance_matrix1: np.ndarray, distance_matrix2: np.ndarray) -> float:
@@ -190,7 +190,7 @@ def run_rsa_pipeline(
     stimuli_base_path: str = None, # Required if extract_features_on_the_fly is True
     tr: float= 2.0, # Required if extract_features_on_the_fly is True
     ai_model_id: str = None, # Required if extract_features_on_the_fly is True
-    ai_layer_name: str = None, 
+    ai_layer_name: str = 'final', 
     ai_model_checkpoint: str = None, 
     rsa_metric: str = 'cosine',
     plot_rdms: bool = True
@@ -252,7 +252,7 @@ def run_rsa_pipeline(
         checkpoint for the AI model to use for feature extraction (e.g., 'whisper-base').
     ai_layer_name : str, optional
         Name of the AI model layer to extract features from.
-        if None, final layer's features will be used.
+        if not specified, final layer's features will be used.
     rsa_metric : str, optional
         The distance metric for RSA (e.g., 'cosine'). Defaults to 'cosine'.
     plot_rdms : bool, optional
@@ -423,7 +423,7 @@ def run_rsa_pipeline(
             if functional_run_name not in f:
                 raise KeyError(f"Functional run name '{functional_run_name}' not found as a key in "
                                f"'{features_h5_path}'. Available keys: {list(f.keys())}")
-            ai_features_for_run = get_stimuli_features_per_bold_signal(functional_run_name)
+            ai_features_for_run = get_stimuli_features_per_bold_signal(features_h5_path, functional_run_name)
     except Exception as e:
         raise ValueError(f"Error loading AI features from '{features_h5_path}': {e}")
     
