@@ -27,6 +27,5 @@ setup(
         'transformers==4.45.2',
         'voxelwise_tutorials==0.2.3'],
     author='Nada Omran, Youssef Ahmed, Nouran Khattab',
-    description="The `NeuroAI-Toolkit` is a powerful Python package designed to bridge the gap between cutting-edge Artificial Intelligence models and intricate neuroimaging data. Tailored for researchers exploring the neural underpinnings of perception and cognition, this toolkit provides a streamlined pipeline for advanced analysis, from feature extraction to brain representation similarity and modeling. Whether you're investigating how the brain processes speech, language, or visual stimuli, `NeuroAI-Toolkit` offers a robust and flexible suite of tools to accelerate your research and uncover meaningful insights.",
-    url='https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit.git'
+    description="The `NeuroAI-Toolkit` is a powerful Python package designed to bridge the gap between cutting-edge Artificial Intelligence models and intricate neuroimaging data. Tailored for researchers exploring the neural underpinnings of perception and cognition, this toolkit provides a streamlined pipeline for advanced analysis, from feature extraction to brain representation similarity and modeling. Whether you're investigating how the brain processes speech, language, or visual stimuli, `NeuroAI-Toolkit` offers a robust and flexible suite of tools to accelerate your research and uncover meaningful insights."
 )
