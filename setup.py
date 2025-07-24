@@ -4,10 +4,9 @@ setup(
     version='0.1.0',                  # version
     packages=find_packages(),         # automatically find folders with __init__.py
     install_requires=[
-        'cleaning==1.0.0',
         'dcor==0.6',
         'h5py==3.12.1',
-        'git+https://github.com/GasserElbanna/hcp-utils.git@master',
+        'hcp-utils @ git+https://github.com/GasserElbanna/hcp-utils.git@master',
         'himalaya==0.4.6',
         'joblib==1.4.2',
         'librosa==0.10.2.post1',
