@@ -13,7 +13,7 @@ setup(
         'matplotlib==3.10.3',
         'nibabel==5.3.2',
         'nilearn==0.12.0',
-        'numpy==2.3.1',
+        'numpy==2.0.2',
         'pandas==2.3.1',
         'Pillow==11.3.0',
         'scikit_learn==1.7.0',
