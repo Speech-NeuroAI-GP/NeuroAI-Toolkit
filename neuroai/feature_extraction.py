@@ -13,6 +13,7 @@ from transformers import WhisperProcessor, WhisperForConditionalGeneration
 from PIL import Image # For image processing (conceptual)
 from torchvision import transforms # For image processing (conceptual)
 from transformers import AutoProcessor, CLIPModel
+from torchvision.models import resnet50, ResNet50_Weights
 
 # --- Global Model/Processor Caches (to avoid reloading for every call) ---
 _MODEL_CACHE = {}
@@ -64,7 +65,6 @@ def _get_model_and_processor(model_id: str, checkpoint: str = None):
         processor = AutoProcessor.from_pretrained(model_name)
         model = CLIPModel.from_pretrained(model_name)
     elif model_id.lower() == 'resnet':
-        from torchvision.models import resnet50, ResNet50_Weights
         if checkpoint and checkpoint != "IMAGENET1K_V1":
              print(f"Warning: ResNet50 only supports 'IMAGENET1K_V1' weights by default. Ignoring '{checkpoint}'.")
         weights = ResNet50_Weights.IMAGENET1K_V1
@@ -197,6 +197,23 @@ def _extract_whisper_embeddings(audio_segment: np.ndarray, model: WhisperForCond
             raise ValueError(f"Whisper layer name '{layer_name}' not recognized. "
                              "Use 'final encoder layer', 'encoder_layerX', or 'decoder_layerX'.")
 
+def _extract_resnet_embeddings(image: np.ndarray, model: resnet50, processor: transforms, layer_name: str = 'final') -> np.ndarray:
+    if layer_name == 'final':
+        image_input = processor(image).unsqueeze(0)
+        # Get features before final classification layer
+        features = model(image_input).squeeze().cpu().numpy()
+        return features
+    else:
+        raise ValueError(f"ResNet layer '{layer_name}' not supported yet only final layer is provided.")
+    
+def _extract_clip_embeddings(image: np.ndarray, model: CLIPModel, processor: AutoProcessor, layer_name: str = 'final') -> np.ndarray:
+    if layer_name == 'final':
+        inputs = processor(images=image, return_tensors="pt")
+        # CLIP's image features
+        segment_features = model.get_image_features(**inputs)
+        return segment_features
+    else:
+        raise ValueError(f"clip layer '{layer_name}' not supported yet only final layer is provided.")
 
 # --- Main Feature Extraction Function ---
 
@@ -302,10 +319,6 @@ def extract_features(
             # Determine the total number of TRs for this run from a corresponding BOLD file or from the total duration of the run
             bold_file_path= event_file_path.replace("_events.tsv", "_bold.dtseries.nii")
             matching_bold_files = glob.glob(bold_file_path)
-
-            if not matching_bold_files:
-                print(f"Warning: No BOLD file found for functional run '{functional_run_name}'. "
-                      "The number of TRs will be estimated from the duration information in the events.tsv file.")
             
             if matching_bold_files:
                 # Load the first matching BOLD file to get its number of TRs
@@ -317,7 +330,9 @@ def extract_features(
                     print(f"Error loading BOLD file '{matching_bold_files[0]}' to get TR count. Skipping. Error: {e}")
                     continue
             else:
-                total_duration = events_df['onset'].values[-1] + events_df['duration'].values[-1]
+                print(f"Warning: No BOLD file found for functional run '{functional_run_name}'. "
+                      "The number of TRs will be estimated from the duration information in the events.tsv file.")
+                total_duration = float(events_df['onset'].values[-1]) + float(events_df['duration'].values[-1])
                 num_TRs = int(np.floor(total_duration / tr))
             feature_matrix = []
             feature_dim = None
@@ -327,7 +342,7 @@ def extract_features(
                 tr_features = []
 
                 for _, row in events_df.iterrows():
-                    onset, duration, stim_file = row['onset'], row['duration'], row['stim_file']
+                    onset, duration, stim_file = float(row['onset']), float(row['duration']), row['stim_file']
                     stim_file_path = os.path.join(stimuli_base_dir, stim_file)
                     stim_start = onset
                     stim_end = onset + duration
@@ -372,30 +387,16 @@ def extract_features(
                             try:
                                 image = Image.open(stim_file_path).convert('RGB')
                                 if torch.cuda.is_available():
-                                    image_input = image_input.to('cuda')
+                                    image = image.to('cuda')
                                 with torch.no_grad():
                                     if model_id.lower() == 'resnet':
-                                        if layer_name == 'final':
-                                            image_input = processor(image).unsqueeze(0)
-                                            # Get features before final classification layer
-                                            features = model(image_input).squeeze().cpu().numpy()
-                                            print(features.shape)
-                                        else:
-                                            raise ValueError(f"ResNet layer '{layer_name}' not supported yet only final layer is provided.")
+                                        segment_features= _extract_resnet_embeddings(image, model, processor, layer_name)
                                     elif model_id.lower() == 'clip':
-                                        if layer_name == 'final':
-                                            inputs = processor(images=image, return_tensors="pt")
-                                            # CLIP's image features
-                                            features = model.get_image_features(**inputs)
-                                            print(features.shape)
-                                        else:
-                                            raise ValueError(f"clip layer '{layer_name}' not supported yet only final layer is provided.")
+                                        segment_features= _extract_clip_embeddings(image, model, processor, layer_name)
                                     else:
                                         raise ValueError(f"Image model '{model_id}' not yet implemented or misconfigured.")
-                                if not len(features.shape) > 1:
-                                    segment_features = features[np.newaxis, :] # Make it (1, feature_dim) for a single image
-                                else:
-                                    segment_features = features
+                                if not len(segment_features.shape) > 1:
+                                    segment_features = segment_features[np.newaxis, :] # Make it (1, feature_dim) for a single image
                                 tr_features.append(segment_features)
                             except Exception as e:
                                 print(f"Error processing image file {stim_file_path}: {e}. Skipping event.")
@@ -409,12 +410,10 @@ def extract_features(
                 if tr_features:
                     tr_features_concat = np.concatenate(tr_features, axis=0)  # [N, feature_dim]
                     if len(np.array(tr_features_concat).shape) > 1:
-                        print(np.array(tr_features).shape)
                         tr_features_mean = torch.from_numpy(tr_features_concat).mean(dim=0)    # [feature_dim]
                         tr_features_mean= np.array(tr_features_mean)
                     else:
                         tr_features_mean= tr_features_concat   
-                        print("here", tr_features_mean.shape)    
                 else:
                     # Default to zeros if no features (use known or fallback dim)
                     tr_features_mean = np.zeros(feature_dim) if feature_dim else np.zeros(768)
@@ -422,7 +421,15 @@ def extract_features(
                 # Initialize feature_dim on first non-zero entry
                 if feature_dim is None and tr_features:
                     feature_dim = tr_features_mean.shape[0]
-
+                    if len(feature_matrix) > 0:
+                        for index, vector in enumerate (feature_matrix):
+                            if vector.shape[0] < feature_dim:
+                                padding_needed = feature_dim - vector.shape[0]
+                                standardized_tr_vec = np.pad(vector, (0, padding_needed), 'constant')
+                            else: # tr_vec.shape[0] > feature_dim
+                                standardized_tr_vec = vector[:feature_dim]
+                            feature_matrix[index]= standardized_tr_vec
+                            
                 feature_matrix.append(tr_features_mean)
             
             feature_matrix= np.stack(feature_matrix)
@@ -436,4 +443,4 @@ def extract_features(
 
     print(f"\nFeature extraction complete. Output saved to: {output_file_path}")
     
-extract_features(bold_data_root_dir= r"E:\year5\GP\padded_stimuli\New folder", stimuli_base_dir= r"E:\year5\GP\padded_stimuli", output_file_path= r"E:\year5\GP\padded_stimuli\new\whisper_decoder_layer6.h5", model_id= "whisper", layer_name="decoder_layer6", checkpoint="openai/whisper-base", tr= 2, task_of_interest= "adollshouse")
+extract_features(bold_data_root_dir= r"E:\year5\GP\padded_stimuli\New folder", stimuli_base_dir= r"E:\year5\GP\padded_stimuli", output_file_path= r"E:\year5\GP\padded_stimuli\new\ecapa.h5", model_id= "ecapa-tdnn", tr= 2, task_of_interest= "inamoment")

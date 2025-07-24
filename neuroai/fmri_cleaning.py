@@ -7,6 +7,8 @@ import subprocess
 import glob
 import re 
 import shutil 
+import platform
+import sys
 # --- Configuration for wb_command ---
 # This will be dynamically determined
 WB_COMMAND_PATH = None
@@ -19,27 +21,34 @@ def _check_wb_command_exists():
     """
     global WB_COMMAND_PATH
 
-    # 1. Try to find wb_command in the system's PATH
+    system = platform.system()
+    if system != "Linux":
+        raise EnvironmentError(
+            f"Connectome Workbench support is only available on Linux.\n"
+            f"You're running on {system}, which is currently not supported."
+        )
+
+    # Check PATH first
     WB_COMMAND_PATH = shutil.which("wb_command")
 
     if WB_COMMAND_PATH is None:
-        # 2. If not in PATH, check for an environment variable
+        # Check env var
         env_path = os.environ.get("WB_COMMAND_PATH")
         if env_path and os.path.exists(env_path) and os.path.isfile(env_path):
             WB_COMMAND_PATH = env_path
         else:
             raise FileNotFoundError(
                 "Connectome Workbench (wb_command) not found.\n"
-                "Please ensure 'wb_command' is either in your system's PATH, "
-                "or set the 'WB_COMMAND_PATH' environment variable to its full path.\n"
-                "Example: export WB_COMMAND_PATH=\"/path/to/your/workbench/bin_linux64/wb_command\" "
+                "Please install Workbench manually and ensure:\n"
+                "- 'wb_command' is in your system's PATH, or\n"
+                "- Set WB_COMMAND_PATH to its full path\n"
+                "Guide: https://humanconnectome.org/software/connectome-workbench"
             )
 
-    # Check if it's executable
     if not os.access(WB_COMMAND_PATH, os.X_OK):
         raise PermissionError(
-            f"Connectome Workbench (wb_command) at {WB_COMMAND_PATH} is not executable.\n"
-            "Please ensure it has execute permissions (e.g., chmod +x {WB_COMMAND_PATH})."
+            f"Connectome Workbench at {WB_COMMAND_PATH} is not executable.\n"
+            f"Run: chmod +x {WB_COMMAND_PATH}"
         )
     print(f"Using wb_command from: {WB_COMMAND_PATH}")
     return True

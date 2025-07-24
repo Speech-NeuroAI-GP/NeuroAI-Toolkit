@@ -63,29 +63,50 @@ source neuroai-env/bin/activate  # On Windows: `neuroai-env\Scripts\activate`
 pip install neuroai-toolkit
 
 # Or, install from source (for latest development version)
-git clone [https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit.git](https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit.git)
+git clone https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit.git
 cd NeuroAI-Toolkit
 pip install -e .
 ```
 ---
+### Important Note on Smoothing (Workbench Dependency)
+NeuroAI-Toolkit offers surface-based spatial smoothing functionality as part of its data cleaning pipeline. This feature relies on the Connectome Workbench (wb_command) for its high-quality surface operations.
+
+**Key Considerations:**
+
+* Linux Only: Workbench is primarily supported on Linux operating systems. Therefore, the smoothing feature within this toolkit is unavailable for users on Windows or macOS.
+
+* Installation for Linux Users: If you are a Linux user and wish to utilize the smoothing feature, you must have Connectome Workbench installed and accessible in your system's PATH. If you don't already have it, you can easily install it using our provided script `install_workbench.sh`
+
+```bash
+cd NeuroAI-Toolkit
+chmod +x install_workbench.sh
+./install_workbench.sh
+```
+
+This script will download, install, and configure Workbench for you. After running it, you may need to restart your terminal or re-source your ~/.bashrc for the wb_command to be recognized.
+
 ## Data Preparation: Understanding Expected Formats
 
 `NeuroAI-Toolkit` is designed to work efficiently with neuroimaging data, particularly fMRI BOLD signals and AI model features. For optimal compatibility and ease of use, we strongly recommend organizing your fMRI data in accordance with the **Brain Imaging Data Structure (BIDS)** standard.
 
 ### fMRI BOLD Data (CIFTI Files)
 
- **Recommended Structure (BIDS-like):** Your fMRI BOLD data should be organized in a subject-centric hierarchy. Each subject folder should contain a `func` subdirectory, which holds CIFTI time series files (`.dtseries.nii`) for each functional run.
+ **Recommended Structure (BIDS-like):** Your fMRI BOLD data should be organized in a subject-centric hierarchy. Each subject folder should contain `ses-` subdirectories each with a `func` subdirectory, which holds CIFTI time series files (`.dtseries.nii`) for each functional run.
    
     
     data/
     ├── sub-01/
-    │   ├── func/
-    │   │   ├── sub-01_task-1_run-01_bold.dtseries.nii
-    |   |   ├── sub-01_task-1_run-01_events.tsv # Mandatory for stimulus alignment
-    │   │   ├── sub-01_task-2_run-01_bold.dtseries.nii
-    │   │   └── ...
+    │   ├── ses-01
+    |   |    ├── func/
+    |   │    │   ├── sub-01_ses-01_task-1_run-01_bold.dtseries.nii
+    |   |    |   ├── sub-01_ses-01_task-1_run-01_events.tsv # Mandatory for stimulus alignment
+    |   │    │   ├── sub-01_ses-01_task-2_run-01_bold.dtseries.nii
+    |   │    │   └── ...
+    |   ├── ses-02
+    |   └── ...
+    |     
     ├── sub-02/
-    │   └── func/
+    │   └── ses-01/
     │       └── ...
     └── ...
     
