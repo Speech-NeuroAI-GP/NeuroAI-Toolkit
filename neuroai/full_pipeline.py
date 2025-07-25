@@ -14,6 +14,7 @@ from neuroai.utils import render_scores # Assuming utils.py, which contains rend
 def run_full_voxelwise_pipeline(
     bids_data_root_dir: str,
     output_base_dir: str,
+    voxelwise_model_bold_test_runs: list[str],
     precomputed_features_h5_path: Optional[str] = None,
     stimuli_base_dir: Optional[str] = None,
     ai_model_id: Optional[str] = None,
@@ -22,7 +23,6 @@ def run_full_voxelwise_pipeline(
     tr: float = 2.0,
     voxelwise_model_delayers: List[int] = [1, 2, 3, 4],
     voxelwise_model_n_runs_out: int = 1,
-    voxelwise_model_bold_test_runs: Optional[List[str]] = None,
     perform_cleaning: bool = False, # Flag to enable/disable cleaning
     selected_confounds: Optional[List[str]] = None,
     smoothing_kernel_size: Optional[int] = None,
@@ -60,6 +60,9 @@ def run_full_voxelwise_pipeline(
         extracted features, voxel-wise model scores, and plots) will be saved.
         Structure: `output_base_dir/cleaned_data/`, `output_base_dir/features/`,
         `output_base_dir/voxelwise_results/<model_id>/`.
+    voxelwise_model_bold_test_runs : list[str], optional
+        A list of string identifiers (e.g., 'task-auditory') that identify the
+        BOLD signals to be used for testing within the voxel-wise model.
     precomputed_features_h5_path : str, optional
         Path to an existing HDF5 (.h5) file containing precomputed AI features.
         If provided, `stimuli_base_dir`, `ai_model_id`, `ai_layer_name`,
@@ -85,10 +88,6 @@ def run_full_voxelwise_pipeline(
     voxelwise_model_n_runs_out : int, optional
         Number of runs to leave out for validation in each cross-validation fold
         during model fitting. Defaults to 1 (Leave-One-Run-Out).
-    voxelwise_model_bold_test_runs : list[str], optional
-        A list of string identifiers (e.g., 'task-auditory') that identify the
-        BOLD signals to be used for testing within the voxel-wise model.
-        If None, all available runs will be used for training/testing based on `n_runs_out`.
     perform_cleaning : bool, optional
         If True, the data cleaning pipeline (`run_cleaning_pipeline`) will be executed
         before voxel-wise modeling. Defaults to False.

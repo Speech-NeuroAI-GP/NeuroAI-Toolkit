@@ -443,11 +443,11 @@ def generate_scores_for_specific_model_across_subjects(
     Bold_dataset_dir: str,
     features_file_path: str,
     saving_dir: str,
+    bold_test: list,
     save_EV: bool = False,
     verbose: bool = True,
     random_seed: int = None,
     delayers: list = [1, 2, 3, 4],
-    bold_test: list = None,
     n_runs_out: int = 1
 ):
   """
@@ -468,6 +468,9 @@ def generate_scores_for_specific_model_across_subjects(
     saving_dir : str
         Root directory where results (scores, best_alphas, EV) will be saved.
         Results will be organized by subject.
+    bold_test : list, optional
+        A list of string identifiers 
+        that identify the BOLD signals to be used for testing.
     save_EV : bool, optional
         If True, compute and save explainable variance (EV) for test runs.
         Defaults to False.
@@ -479,9 +482,6 @@ def generate_scores_for_specific_model_across_subjects(
     delayers : list, optional
         List of time-step delays to use for the `VoxelWiseModeler`.
         Defaults to `[1, 2, 3, 4]`.
-    bold_test : list, optional
-        A list of string identifiers 
-        that identify the BOLD signals to be used for testing.
     n_runs_out : int, optional
         Number of runs to leave out for validation in each cross-validation fold
         during model fitting. Defaults to 1 (Leave-One-Run-Out).
