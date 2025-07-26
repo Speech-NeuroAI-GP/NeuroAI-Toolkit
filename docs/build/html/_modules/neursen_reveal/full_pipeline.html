@@ -519,12 +519,12 @@
             <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">significant_scores_path</span><span class="p">,</span> <span class="n">significant_scores_map</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Statistically significant scores saved to: </span><span class="si">{</span><span class="n">significant_scores_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            <span class="c1"># print(f&quot;  Plotting significant regions parcellated by network (threshold: {plot_threshold})...&quot;)</span>
-            <span class="c1"># parcellated_view = plot_parcellation_of_peak_intensity_regions(</span>
-            <span class="c1">#     data=significant_scores_map,</span>
-            <span class="c1">#     threshold=plot_threshold</span>
-            <span class="c1"># )</span>
-            <span class="c1"># print(&quot;  Interactive parcellation plot generated (display in notebook/browser).&quot;)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Plotting significant regions parcellated by network (threshold: </span><span class="si">{</span><span class="n">plot_threshold</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+            <span class="n">parcellated_view</span> <span class="o">=</span> <span class="n">plot_parcellation_of_peak_intensity_regions</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">significant_scores_map</span><span class="p">,</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">plot_threshold</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Interactive parcellation plot generated (display in notebook/browser).&quot;</span><span class="p">)</span>
             <span class="c1"># You might want to save this HTML view if not in a notebook</span>
             <span class="c1"># parcellated_view.save_as_html(os.path.join(model_results_specific_dir, &#39;significant_parcellated_regions.html&#39;))</span>
 
@@ -558,15 +558,15 @@
             <span class="c1"># averaged_rendered_view.save_as_html(os.path.join(model_results_specific_dir, &#39;averaged_scores_render.html&#39;))</span>
 
             <span class="c1"># # Load the saved averaged scores to pass to parcellation plot</span>
-            <span class="c1"># average_scores_path = os.path.join(model_results_specific_dir, &#39;average_scores.npy&#39;)</span>
-            <span class="c1"># if os.path.exists(average_scores_path):</span>
-            <span class="c1">#     averaged_scores_data = np.load(average_scores_path)</span>
-            <span class="c1">#     print(f&quot;  Plotting averaged regions parcellated by network (threshold: {plot_threshold})...&quot;)</span>
-            <span class="c1">#     parcellated_averaged_view = plot_parcellation_of_peak_intensity_regions(</span>
-            <span class="c1">#         data=averaged_scores_data,</span>
-            <span class="c1">#         threshold=plot_threshold</span>
-            <span class="c1">#     )</span>
-            <span class="c1">#     print(&quot;  Interactive parcellation plot of averaged scores generated (display in notebook/browser).&quot;)</span>
+            <span class="n">average_scores_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_specific_dir</span><span class="p">,</span> <span class="s1">&#39;average_scores.npy&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">average_scores_path</span><span class="p">):</span>
+                <span class="n">averaged_scores_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">average_scores_path</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Plotting averaged regions parcellated by network (threshold: </span><span class="si">{</span><span class="n">plot_threshold</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+                <span class="n">parcellated_averaged_view</span> <span class="o">=</span> <span class="n">plot_parcellation_of_peak_intensity_regions</span><span class="p">(</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">averaged_scores_data</span><span class="p">,</span>
+                    <span class="n">threshold</span><span class="o">=</span><span class="n">plot_threshold</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Interactive parcellation plot of averaged scores generated (display in notebook/browser).&quot;</span><span class="p">)</span>
             <span class="c1">#     # parcellated_averaged_view.save_as_html(os.path.join(model_results_specific_dir, &#39;averaged_parcellated_regions.html&#39;))</span>
             <span class="c1"># else:</span>
             <span class="c1">#     print(f&quot;Warning: &#39;average_scores.npy&#39; not found at {average_scores_path}. Cannot plot parcellation of averaged scores.&quot;)</span>
