@@ -262,12 +262,12 @@ def run_full_voxelwise_pipeline(
             np.save(significant_scores_path, significant_scores_map)
             print(f"  Statistically significant scores saved to: {significant_scores_path}")
 
-            # print(f"  Plotting significant regions parcellated by network (threshold: {plot_threshold})...")
-            # parcellated_view = plot_parcellation_of_peak_intensity_regions(
-            #     data=significant_scores_map,
-            #     threshold=plot_threshold
-            # )
-            # print("  Interactive parcellation plot generated (display in notebook/browser).")
+            print(f"  Plotting significant regions parcellated by network (threshold: {plot_threshold})...")
+            parcellated_view = plot_parcellation_of_peak_intensity_regions(
+                data=significant_scores_map,
+                threshold=plot_threshold
+            )
+            print("  Interactive parcellation plot generated (display in notebook/browser).")
             # You might want to save this HTML view if not in a notebook
             # parcellated_view.save_as_html(os.path.join(model_results_specific_dir, 'significant_parcellated_regions.html'))
 
@@ -301,15 +301,15 @@ def run_full_voxelwise_pipeline(
             # averaged_rendered_view.save_as_html(os.path.join(model_results_specific_dir, 'averaged_scores_render.html'))
 
             # # Load the saved averaged scores to pass to parcellation plot
-            # average_scores_path = os.path.join(model_results_specific_dir, 'average_scores.npy')
-            # if os.path.exists(average_scores_path):
-            #     averaged_scores_data = np.load(average_scores_path)
-            #     print(f"  Plotting averaged regions parcellated by network (threshold: {plot_threshold})...")
-            #     parcellated_averaged_view = plot_parcellation_of_peak_intensity_regions(
-            #         data=averaged_scores_data,
-            #         threshold=plot_threshold
-            #     )
-            #     print("  Interactive parcellation plot of averaged scores generated (display in notebook/browser).")
+            average_scores_path = os.path.join(model_results_specific_dir, 'average_scores.npy')
+            if os.path.exists(average_scores_path):
+                averaged_scores_data = np.load(average_scores_path)
+                print(f"  Plotting averaged regions parcellated by network (threshold: {plot_threshold})...")
+                parcellated_averaged_view = plot_parcellation_of_peak_intensity_regions(
+                    data=averaged_scores_data,
+                    threshold=plot_threshold
+                )
+                print("  Interactive parcellation plot of averaged scores generated (display in notebook/browser).")
             #     # parcellated_averaged_view.save_as_html(os.path.join(model_results_specific_dir, 'averaged_parcellated_regions.html'))
             # else:
             #     print(f"Warning: 'average_scores.npy' not found at {average_scores_path}. Cannot plot parcellation of averaged scores.")
