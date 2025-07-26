@@ -11,7 +11,7 @@ A powerful Python package designed to bridge the gap between cutting-edge Artifi
 
 ## Documentation
 
-Comprehensive documentation for `neursen_reveal` is available to help you understand its features, installation, usage, and examples.
+Comprehensive documentation for `neursen_reveal` is available to help you understand its features, installation, and usage.
 
 ### Viewing the Documentation Locally
 
