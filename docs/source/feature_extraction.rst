@@ -20,7 +20,7 @@ Example Usage
 
 This example illustrates how to extract features using the `ecapa-tdnn` model for speech stimuli, saving them to an HDF5 file.
 
-        from neursen_reveal.deep_feature_extraction import extract_features
+        from neursen_reveal.feature_extraction import extract_features
 
         import os
 
