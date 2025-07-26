@@ -1,160 +1,44 @@
 # 🧠 NeuroAI-Toolkit
 
-![NeurSen Reveal Logo/Banner - Placeholder Image](https://raw.githubusercontent.com/your-username/NeuroAI-Toolkit/main/assets/neursen_reveal_banner.png) 
+![NeurSen Reveal Logo/Banner - Placeholder Image](https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit/main/assets/neursen_reveal_banner.png) 
 
 
 ---
 
-## Unlocking Brain-AI Connections: A Comprehensive Toolkit for Neuroimaging-AI Research
+# NeuroAI-Toolkit
 
-The `NeurSen Reveal` is a powerful Python package designed to bridge the gap between cutting-edge Artificial Intelligence models and intricate neuroimaging data. Tailored for researchers exploring the neural underpinnings of perception and cognition, this toolkit provides a streamlined pipeline for advanced analysis, from feature extraction to brain representation similarity and modeling.
+A powerful Python package designed to bridge the gap between cutting-edge Artificial Intelligence models and intricate neuroimaging data.
 
-Whether you're investigating how the brain processes speech, language, or visual stimuli, `NeurSen Reveal` offers a robust and flexible suite of tools to accelerate your research and uncover meaningful insights.
+## Documentation
 
----
+Comprehensive documentation for `neursen_reveal` is available to help you understand its features, installation, usage, and examples.
 
-## ✨ Features at a Glance
+### Viewing the Documentation Locally
 
-`NeurSen Reveal` is meticulously designed to support a wide range of analytical needs in NeuroAI research, offering modules for:
-* **Unified Analysis Pipeline:**
-    * Execute the entire fMRI voxel-wise modeling workflow from data cleaning to visualization with a single, configurable function.
-    * Streamlines research, enhances reproducibility, and minimizes manual intervention across multiple analysis stages.
+To view the full documentation, including detailed API references and examples:
 
-* **Deep Feature Extraction:**
-    * Effortlessly extract rich, high-dimensional features from state-of-the-art AI models across multiple modalities.
-    * **Supported Models:**
-        * **Speech:** OpenAI Whisper Encoder (all checkpoints), ECAPA-TDNN
-         * **Language:** OpenAI Whisper Decoder (all checkpoints)
-        * **Vision:** ResNet50
-         * **Vision-Language interaction:** CLIP (all checkpoints)
-    * Generates standardized `.h5` feature files for seamless integration into your analyses.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit.git 
+    cd NeuroAI-Toolkit
+    ```
+2.  **Navigate to the documentation directory:**
+    ```bash
+    cd docs
+    ```
+3.  **Open the HTML documentation in your web browser:**
+    The pre-built HTML documentation is located in the `_build/html` directory.
+    * **On Windows:** Double-click on `_build\html\index.html` in your file explorer.
+    * **On Linux/macOS:** Open a terminal in the `docs` directory and run:
+        ```bash
+        xdg-open _build/html/index.html   # For most Linux desktop environments
+        # or (if xdg-open doesn't work)
+        firefox _build/html/index.html
+        # or
+        google-chrome _build/html/index.html
+        ```
+      Alternatively, you can navigate to the `_build/html` folder using your file browser and double-click `index.html`.
 
-* **fMRI CIFTI Data Cleaning:**
-    * Robust preprocessing functionalities specifically optimized for CIFTI (Connectivity Informatics Technology Initiative) brain data.
-    * Ensures high-quality, artifact-minimized fMRI signals for downstream analysis.
-
-* **Voxelwise Encoding Models:**
-    * Build and evaluate powerful voxelwise models to predict brain activity from AI features.
-    * Facilitates granular analysis of representational mappings across the brain.
-
-* **Brain Parcellation & Score Mapping:**
-    * Tools to parcellate and visualize brain scores (e.g., R-squared maps) using established atlases (e.g., Yan et al. 2017 Kong et al. 2019 parcellation), allowing for region-of-interest (ROI) level interpretation.
-    * Understand the spatial distribution of representational information.
-
-* **Representational Similarity Analysis (RSA):**
-    * Quantify the similarity between AI model representations and brain activity patterns.
-    * Provides statistical measures (e.g., distance correlation) and visualization tools for direct comparison of representational geometries.
-
-* **Statistical Significance Testing:**
-    * Perform rigorous statistical analyses to assess the significance of findings across subjects and experimental conditions.
-
----
-
-## 🚀 Getting Started
-
-### Installation
-
-```bash
-# Recommended: Create a new virtual environment
-python -m venv neursen-reveal-env
-source neursen-reveal-env/bin/activate  # On Windows: `neursen_reveal-env\Scripts\activate`
-
-# Install from PyPI (once available)
-pip install neursen_reveal
-
-# Or, install from source (for latest development version)
-git clone https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit.git
-cd NeuroAI-Toolkit
-pip install -e .
-```
----
-### Important Note on Smoothing (Workbench Dependency)
-NeurSen Reveal offers surface-based spatial smoothing functionality as part of its data cleaning pipeline. This feature relies on the Connectome Workbench (wb_command) for its high-quality surface operations.
-
-**Key Considerations:**
-
-* Linux Only: Workbench is primarily supported on Linux operating systems. Therefore, the smoothing feature within this toolkit is unavailable for users on Windows or macOS.
-
-* Installation for Linux Users: If you are a Linux user and wish to utilize the smoothing feature, you must have Connectome Workbench installed and accessible in your system's PATH. If you don't already have it, you can easily install it using our provided script `install_workbench.sh`
-
-```bash
-cd NeuroAI-Toolkit
-chmod +x install_workbench.sh
-./install_workbench.sh
-```
-
-This script will download, install, and configure Workbench for you. After running it, you may need to restart your terminal or re-source your ~/.bashrc for the wb_command to be recognized.
-
-## Data Preparation: Understanding Expected Formats
-
-`NeurSen Reveal` is designed to work efficiently with neuroimaging data, particularly fMRI BOLD signals and AI model features. For optimal compatibility and ease of use, we strongly recommend organizing your fMRI data in accordance with the **Brain Imaging Data Structure (BIDS)** standard.
-
-### fMRI BOLD Data (CIFTI Files)
-
- **Recommended Structure (BIDS-like):** Your fMRI BOLD data should be organized in a subject-centric hierarchy. Each subject folder should contain `ses-` subdirectories each with a `func` subdirectory, which holds CIFTI time series files (`.dtseries.nii`) for each functional run.
-   
-    
-    data/
-    ├── sub-01/
-    │   ├── ses-01
-    |   |    ├── func/
-    |   │    │   ├── sub-01_ses-01_task-1_run-01_bold.dtseries.nii
-    |   |    |   ├── sub-01_ses-01_task-1_run-01_events.tsv # Mandatory for stimulus alignment
-    |   │    │   ├── sub-01_ses-01_task-2_run-01_bold.dtseries.nii
-    |   │    │   └── ...
-    |   ├── ses-02
-    |   └── ...
-    |     
-    ├── sub-02/
-    │   └── ses-01/
-    │       └── ...
-    └── ...
-    
- **Naming Convention:** Functional CIFTI files are expected to follow the BIDS naming scheme: `sub-<label>[_ses-<label>]_task-<label>[_acq-<label>][_rec-<label>][_run-<index>]_bold.dtseries.nii`. The `task-<label>` is crucial as it links to your stimulus set.
-
-    
----
-### AI Model Feature Files
- **Input for Feature Extraction Module:**
-If you utilize `neusen_reveal`'s integrated feature extraction module (`neursen_reveal.deep_feature_extraction.extract_features`), then **for every BOLD run you wish to process, a corresponding `_events.tsv` file is mandatory.** This file defines the timing and identity of stimuli or events presented during that run, enabling accurate alignment of stimuli with fMRI TRs.
-
-Specifically, the `_events.tsv` should contain at least the following columns:
-
-* **`onset`**: The onset time of the stimulus/event in seconds, relative to the start of the functional run.
-* **`duration`**: The duration of the stimulus/event in seconds.
-* **`stim_file`**: The path to the specific stimulus file, relative to the `stimuli/` root directory (see section below). The `task-<label>` in your BOLD file name should match the base name of the `stim_file`.
-
-Examples of `_events.tsv` content:
-
-
-    onset   duration    stim_file
-    0.0       450.0     stories/story_name.wav
-
-**Stimuli Data Structure (for Feature Extraction Module):**
-
-The `neursen_reveal.deep_feature_extraction.extract_features` module expects a path to your stimulus data.
-
-**Naming Convention:** Individual stimulus files should be named and located logically withon the `stimuli_base_dir` such that the full *relative path* from `stimuli_base_dir` to the file must precisely match the entries in the `stim_file` column of your `_events.tsv` files.
-
-    stimuli/
-    ├── object_recognition/
-    │   ├── car_image.png
-    │   ├── dog_image.png
-    │   └── ...
-    └── ...
-
-
-
-After processing, the feature extraction module will generate a single `.h5` file for your entire dataset based on your specified AI model, typically with keys corresponding to the unique identifiers for the functional runs (e.g., `task_label_run-index`).
-
-Expected Format for Pre-computed Features (`.h5` files):
--------------------------------------------------------
-
-If you are providing your own pre-computed features (i.e., **not** using `neursen_reveal.deep_feature_extraction.extract_features`), these features **must be provided as a single HDF5 (`.h5`) file**. In this scenario, `_events.tsv` files are not directly consumed by `neusen_reveal` as you are providing the already aligned features.
-
-**Structure of the `.h5` file:**
-* **Keys:** Each key in the `.h5` file should correspond to a **unique identifier for a functional run** (e.g., `'story_A_run-01'`). This is critical for correctly aligning AI features with the BOLD brain data during voxel-wise modeling.
-* **Values:** The value associated with each key will be a NumPy array representing the AI model features for all stimuli presented within that specific functional run, already aligned to the run's temporal progression. The shape of this array will be (`number_of_TRs_in_run`, `AI_model_feature_dimension`). This means that for each TR in a given functional run, there will be a corresponding row of AI features.
 
 
 ## 📄 License
@@ -179,6 +63,9 @@ For questions, issues, or collaborations, please open an issue on our GitHub rep
   </a>
   <a href="https://github.com/nouran-19">
     <img src="https://avatars.githubusercontent.com/u/99448829?v=4" width="100px" alt="@nouran-19">
+  </a>
+  <a href="https://github.com/GasserElbanna">
+    <img src="https://avatars.githubusercontent.com/u/35977552?v=4" width="100px" alt="@GasserElbanna">
   </a>
 </div>
 
