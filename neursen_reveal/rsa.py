@@ -6,10 +6,10 @@ import nibabel as nib
 import h5py
 import os
 import glob
-from neuroai.utils import get_stimuli_features_per_bold_signal
-from neuroai.parcellation import parcellate_brain_by_network
-from neuroai.stats import get_significant_voxels_from_arrays
-from neuroai.feature_extraction import extract_features 
+from neursen_reveal.utils import get_stimuli_features_per_bold_signal
+from neursen_reveal.parcellation import parcellate_brain_by_network
+from neursen_reveal.stats import get_significant_voxels_from_arrays
+from neursen_reveal.feature_extraction import extract_features 
 
 
 def compute_distance_correlation(distance_matrix1: np.ndarray, distance_matrix2: np.ndarray) -> float:
@@ -223,7 +223,7 @@ def run_rsa_pipeline(
     h_delay_trs : int, optional
         Hemodynamic delay in TRs. BOLD data will be shifted by this amount.
         Defaults to 2.
-    silence_padding_trs : int, optional
+    padding_trs : int, optional
         Number of TRs to remove from the beginning and end of both BOLD and
         feature data, typically corresponding to silence padding. Defaults to 10.
     desired_subjects : list, optional

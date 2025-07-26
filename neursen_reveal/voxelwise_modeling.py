@@ -1,4 +1,4 @@
-from neuroai.utils import *
+from neursen_reveal.utils import *
 import matplotlib.pyplot as plt
 import joblib
 from sklearn.model_selection import check_cv
@@ -573,6 +573,49 @@ def generate_scores_for_specific_model_across_subjects(
     if verbose:
       print("----------------------Reporting Scores Stats----------------------")
       vm_model.report_scores_stats(curr_scores)
+      
+def render_scores(scores: np.ndarray, threshold: str = "90%", title: str = "Rendered R-squared Scores"):
+        """
+        Renders voxel-wise scores (e.g., R-squared) onto an inflated brain surface
+        using `nilearn.plotting.view_surf`.
+
+        This function assumes `hcp_utils` is configured correctly to provide
+        mesh data (`hcp.mesh.inflated`, `hcp.mesh.sulc`) and cortex data.
+
+        Parameters
+        ----------
+        scores : np.ndarray
+            A NumPy array of scores for each voxel/vertex.
+            Shape: `(n_voxels,)`.
+        threshold : str or float, optional
+            Threshold for displaying values on the surface map. Can be a percentage
+            string (e.g., "90%") or a float (e.g., 0.1). Defaults to "90%".
+        title : str, optional
+            Title for the rendered brain plot. Defaults to "Rendered R-squared Scores".
+
+        Returns
+        -------
+        nilearn.plotting.html_view.HTMLView
+            An interactive HTML viewer object of the brain surface plot.
+        """
+        data = scores.copy()
+        if threshold is str:
+            threshold= int(threshold.replace("%", ''))
+            threshold = np.percentile(data, threshold)
+        else:
+            threshold = threshold
+        view= plotting.view_surf(
+            hcp.mesh.inflated,
+            hcp.cortex_data(data),
+            title= title,
+            cmap='Reds',
+            symmetric_cmap=False,
+            vmin= threshold,
+            bg_map=hcp.mesh.sulc
+            )
+        return view
+
+
 
 def render_averaged_scores(data_dir: str, threshold: str = "90%", title: str = "Averaged Rendered R-squared Scores"):
   """

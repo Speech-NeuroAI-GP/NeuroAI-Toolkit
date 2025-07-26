@@ -4,12 +4,12 @@ import h5py # For checking feature file content
 from typing import List, Optional, Union, Any
 
 # Import functions from your existing scripts
-from neuroai.fmri_cleaning import run_cleaning_pipeline
-from neuroai.feature_extraction import extract_features # Assuming feature_extraction.py
-from neuroai.voxelwise_modeling import generate_scores_for_specific_model_across_subjects, render_averaged_scores # Assuming voxelwise_modeling.py
-from neuroai.stats import get_significant_model_scores # Assuming stats.py
-from neuroai.parcellation import plot_parcellation_of_peak_intensity_regions
-from neuroai.utils import render_scores # Assuming utils.py, which contains render_scores
+from neursen_reveal.fmri_cleaning import run_cleaning_pipeline
+from neursen_reveal.feature_extraction import extract_features # Assuming feature_extraction.py
+from neursen_reveal.voxelwise_modeling import generate_scores_for_specific_model_across_subjects, render_averaged_scores, render_scores # Assuming voxelwise_modeling.py
+from neursen_reveal.stats import get_significant_model_scores # Assuming stats.py
+from neursen_reveal.parcellation import plot_parcellation_of_peak_intensity_regions
+
 
 def run_full_voxelwise_pipeline(
     bids_data_root_dir: str,

@@ -1,21 +1,21 @@
 # 🧠 NeuroAI-Toolkit
 
-![NeuroAI Toolkit Logo/Banner - Placeholder Image](https://raw.githubusercontent.com/your-username/NeuroAI-Toolkit/main/assets/neuroai_banner.png) 
+![NeurSen Reveal Logo/Banner - Placeholder Image](https://raw.githubusercontent.com/your-username/NeuroAI-Toolkit/main/assets/neursen_reveal_banner.png) 
 
 
 ---
 
 ## Unlocking Brain-AI Connections: A Comprehensive Toolkit for Neuroimaging-AI Research
 
-The `NeuroAI-Toolkit` is a powerful Python package designed to bridge the gap between cutting-edge Artificial Intelligence models and intricate neuroimaging data. Tailored for researchers exploring the neural underpinnings of perception and cognition, this toolkit provides a streamlined pipeline for advanced analysis, from feature extraction to brain representation similarity and modeling.
+The `NeurSen Reveal` is a powerful Python package designed to bridge the gap between cutting-edge Artificial Intelligence models and intricate neuroimaging data. Tailored for researchers exploring the neural underpinnings of perception and cognition, this toolkit provides a streamlined pipeline for advanced analysis, from feature extraction to brain representation similarity and modeling.
 
-Whether you're investigating how the brain processes speech, language, or visual stimuli, `NeuroAI-Toolkit` offers a robust and flexible suite of tools to accelerate your research and uncover meaningful insights.
+Whether you're investigating how the brain processes speech, language, or visual stimuli, `NeurSen Reveal` offers a robust and flexible suite of tools to accelerate your research and uncover meaningful insights.
 
 ---
 
 ## ✨ Features at a Glance
 
-`NeuroAI-Toolkit` is meticulously designed to support a wide range of analytical needs in NeuroAI research, offering modules for:
+`NeurSen Reveal` is meticulously designed to support a wide range of analytical needs in NeuroAI research, offering modules for:
 * **Unified Analysis Pipeline:**
     * Execute the entire fMRI voxel-wise modeling workflow from data cleaning to visualization with a single, configurable function.
     * Streamlines research, enhances reproducibility, and minimizes manual intervention across multiple analysis stages.
@@ -56,11 +56,11 @@ Whether you're investigating how the brain processes speech, language, or visual
 
 ```bash
 # Recommended: Create a new virtual environment
-python -m venv neuroai-env
-source neuroai-env/bin/activate  # On Windows: `neuroai-env\Scripts\activate`
+python -m venv neursen-reveal-env
+source neursen-reveal-env/bin/activate  # On Windows: `neursen_reveal-env\Scripts\activate`
 
 # Install from PyPI (once available)
-pip install neuroai-toolkit
+pip install neursen_reveal
 
 # Or, install from source (for latest development version)
 git clone https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit.git
@@ -69,7 +69,7 @@ pip install -e .
 ```
 ---
 ### Important Note on Smoothing (Workbench Dependency)
-NeuroAI-Toolkit offers surface-based spatial smoothing functionality as part of its data cleaning pipeline. This feature relies on the Connectome Workbench (wb_command) for its high-quality surface operations.
+NeurSen Reveal offers surface-based spatial smoothing functionality as part of its data cleaning pipeline. This feature relies on the Connectome Workbench (wb_command) for its high-quality surface operations.
 
 **Key Considerations:**
 
@@ -87,7 +87,7 @@ This script will download, install, and configure Workbench for you. After runni
 
 ## Data Preparation: Understanding Expected Formats
 
-`NeuroAI-Toolkit` is designed to work efficiently with neuroimaging data, particularly fMRI BOLD signals and AI model features. For optimal compatibility and ease of use, we strongly recommend organizing your fMRI data in accordance with the **Brain Imaging Data Structure (BIDS)** standard.
+`NeurSen Reveal` is designed to work efficiently with neuroimaging data, particularly fMRI BOLD signals and AI model features. For optimal compatibility and ease of use, we strongly recommend organizing your fMRI data in accordance with the **Brain Imaging Data Structure (BIDS)** standard.
 
 ### fMRI BOLD Data (CIFTI Files)
 
@@ -112,33 +112,29 @@ This script will download, install, and configure Workbench for you. After runni
     
  **Naming Convention:** Functional CIFTI files are expected to follow the BIDS naming scheme: `sub-<label>[_ses-<label>]_task-<label>[_acq-<label>][_rec-<label>][_run-<index>]_bold.dtseries.nii`. The `task-<label>` is crucial as it links to your stimulus set.
 
- **Stimulus Information (`_events.tsv` - Mandatory for Alignment):**
-For **every** BOLD run, a corresponding `_events.tsv` file is **mandatory**. This file must define the timing and identity of stimuli or events presented during that run. Specifically, it should contain at least the following columns:
-
-* **`onset`**: The onset time of the stimulus/event in seconds, relative to the start of the functional run.
-* **`duration`**: The duration of the stimulus/event in seconds.
-* **`stim_file`**: The path to the specific stimulus file, relative to the `stimuli/` root directory (see section below).
-
-#### Examples of `_events.tsv` content:
-
-**1. Passive Listening:**
-For datasets where a single stimulus (e.g., a story) spans an entire run, the `_events.tsv` would typically have one entry per run. The `stim_file` would point to the `.wav` file of the story. The `task-<label>` in your BOLD file name should match the base name of the `stim_file`.
-
-`sub-01_ses-5_task-inamoment_events.tsv`
-```tsv
-onset	duration	stim_file
-0.0	     450.0	  stories/story_name.wav
-```
     
 ---
 ### AI Model Feature Files
  **Input for Feature Extraction Module:**
+If you utilize `neusen_reveal`'s integrated feature extraction module (`neursen_reveal.deep_feature_extraction.extract_features`), then **for every BOLD run you wish to process, a corresponding `_events.tsv` file is mandatory.** This file defines the timing and identity of stimuli or events presented during that run, enabling accurate alignment of stimuli with fMRI TRs.
 
- If you utilize `NeuroAI-Toolkit`'s integrated feature extraction module, you will provide a path to your stimulus data. This module expects your stimuli to be organized in a way that allows it to identify and process them according to the `stim_file` specified in your `_events.tsv`.
-    
- **Structure:** The top-level stimuli/ directory should contain subfolders that mirror the directory structure used in the `stim_file` column of your `_events.tsv` files. Place your actual stimulus files (e.g., .wav, .mp3, .jpg, .mp4) within these folders.
+Specifically, the `_events.tsv` should contain at least the following columns:
 
-**Naming Convention:** Individual stimulus files within these folders should be named logically such that the full relative path to these files must precisely match the entries in the `stim_file` column of your `_events.tsv` files.
+* **`onset`**: The onset time of the stimulus/event in seconds, relative to the start of the functional run.
+* **`duration`**: The duration of the stimulus/event in seconds.
+* **`stim_file`**: The path to the specific stimulus file, relative to the `stimuli/` root directory (see section below). The `task-<label>` in your BOLD file name should match the base name of the `stim_file`.
+
+Examples of `_events.tsv` content:
+
+
+    onset   duration    stim_file
+    0.0       450.0     stories/story_name.wav
+
+**Stimuli Data Structure (for Feature Extraction Module):**
+
+The `neursen_reveal.deep_feature_extraction.extract_features` module expects a path to your stimulus data.
+
+**Naming Convention:** Individual stimulus files should be named and located logically withon the `stimuli_base_dir` such that the full *relative path* from `stimuli_base_dir` to the file must precisely match the entries in the `stim_file` column of your `_events.tsv` files.
 
     stimuli/
     ├── object_recognition/
@@ -147,16 +143,18 @@ onset	duration	stim_file
     │   └── ...
     └── ...
 
-The feature extraction module will then generate `.h5` file for your entire dataset based on your specified AI model, typically with keys corresponding to the unique identifiers for the functional runs (e.g. `task_label`_run-`index` ).
 
----
-###  Expected Format for Pre-computed Features:
 
-If you are providing your own pre-computed AI features (i.e., not using our feature extraction module), they **must be provided as a single `.h5` file** 
+After processing, the feature extraction module will generate a single `.h5` file for your entire dataset based on your specified AI model, typically with keys corresponding to the unique identifiers for the functional runs (e.g., `task_label_run-index`).
+
+Expected Format for Pre-computed Features (`.h5` files):
+-------------------------------------------------------
+
+If you are providing your own pre-computed features (i.e., **not** using `neursen_reveal.deep_feature_extraction.extract_features`), these features **must be provided as a single HDF5 (`.h5`) file**. In this scenario, `_events.tsv` files are not directly consumed by `neusen_reveal` as you are providing the already aligned features.
 
 **Structure of the `.h5` file:**
-*    **Keys:** Each key in the `.h5` file should correspond to a **unique identifier for a functional run** (e.g., `'story_A_run-01'`). This is critical for correctly aligning AI features with brain data.
-*  **Values:** The value associated with each key will be a NumPy array representing the AI model features for all stimuli presented within that specific functional run, aligned to the run's temporal progression. The shape of this array will be (`number_of_TRs_in_run`, `AI_model_feature_dimension`). This means that for each TR in a given functional run, there will be a corresponding row of AI features.
+* **Keys:** Each key in the `.h5` file should correspond to a **unique identifier for a functional run** (e.g., `'story_A_run-01'`). This is critical for correctly aligning AI features with the BOLD brain data during voxel-wise modeling.
+* **Values:** The value associated with each key will be a NumPy array representing the AI model features for all stimuli presented within that specific functional run, already aligned to the run's temporal progression. The shape of this array will be (`number_of_TRs_in_run`, `AI_model_feature_dimension`). This means that for each TR in a given functional run, there will be a corresponding row of AI features.
 
 
 ## 📄 License

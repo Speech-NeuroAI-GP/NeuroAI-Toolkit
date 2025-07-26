@@ -1,0 +1,742 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.07.19 -->
+        <title>neursen_reveal.feature_extraction - neusen_reveal 0.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=25af2a20" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">neusen_reveal 0.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">neusen_reveal 0.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_formats.html">Data Preparation: Understanding Expected Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cleaning.html">fMRI Data Cleaning Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../feature_extraction.html">Deep Feature Extraction Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Voxel-wise Modeling Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stats.html">Statistical Significance Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parcellation.html">Brain Parcellation and Plotting Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rsa.html">Representational Similarity Analysis (RSA) Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_pipeline.html">Full Unified Voxel-wise Modeling Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../example_usage.html">Comprehensive Example Usage (Colab Notebook)</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for neursen_reveal.feature_extraction</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">speechbrain</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">speechbrain.inference</span><span class="w"> </span><span class="kn">import</span> <span class="n">EncoderClassifier</span><span class="p">,</span> <span class="n">SpeakerRecognition</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">WhisperProcessor</span><span class="p">,</span> <span class="n">WhisperForConditionalGeneration</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span> <span class="c1"># For image processing (conceptual)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">transforms</span> <span class="c1"># For image processing (conceptual)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoProcessor</span><span class="p">,</span> <span class="n">CLIPModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">resnet50</span><span class="p">,</span> <span class="n">ResNet50_Weights</span>
+
+<span class="c1"># --- Global Model/Processor Caches (to avoid reloading for every call) ---</span>
+<span class="n">_MODEL_CACHE</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_model_and_processor</span><span class="p">(</span><span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads and caches the specified AI model and its processor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cache_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">checkpoint</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="n">cache_key</span> <span class="ow">in</span> <span class="n">_MODEL_CACHE</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;here&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_MODEL_CACHE</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading </span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2"> model and processor (checkpoint: </span><span class="si">{</span><span class="n">checkpoint</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">processor</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ecapa-tdnn&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">checkpoint</span> <span class="ow">and</span> <span class="n">checkpoint</span> <span class="o">!=</span> <span class="s2">&quot;speechbrain/spkrec-ecapa-voxceleb&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: ECAPA-TDNN only supports &#39;speechbrain/spkrec-ecapa-voxceleb&#39; checkpoint. Ignoring &#39;</span><span class="si">{</span><span class="n">checkpoint</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">EncoderClassifier</span><span class="o">.</span><span class="n">from_hparams</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s2">&quot;speechbrain/spkrec-ecapa-voxceleb&quot;</span><span class="p">,</span> <span class="n">savedir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;tmp&quot;</span><span class="p">,</span> <span class="s2">&quot;ecapa_model_cache&quot;</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;whisper&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">checkpoint</span><span class="p">:</span>
+            <span class="n">model_name</span> <span class="o">=</span> <span class="n">checkpoint</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;You must specify a valid checkpoint name for the pretrained Whisper model.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Examples include: &#39;openai/whisper-tiny&#39;, &#39;openai/whisper-base&#39;.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;See the full list of available checkpoints at: https://huggingface.co/openai&quot;</span>
+        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">processor</span> <span class="o">=</span> <span class="n">WhisperProcessor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">WhisperForConditionalGeneration</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed to load the pretrained Whisper model from checkpoint &#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&#39;.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Please ensure the checkpoint name is correct and available on Hugging Face.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Original error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;clip&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">checkpoint</span><span class="p">:</span>
+            <span class="n">model_name</span> <span class="o">=</span> <span class="n">checkpoint</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;You must specify a valid checkpoint name for the pretrained Whisper model.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Examples include: &#39;openai/clip-vit-large-patch14&#39;, &#39;openai/clip-vit-base-patch32&#39;.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;See the full list of available checkpoints at: https://huggingface.co/openai&quot;</span>
+        <span class="p">)</span>
+        <span class="n">processor</span> <span class="o">=</span> <span class="n">AutoProcessor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">CLIPModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;resnet&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">checkpoint</span> <span class="ow">and</span> <span class="n">checkpoint</span> <span class="o">!=</span> <span class="s2">&quot;IMAGENET1K_V1&quot;</span><span class="p">:</span>
+             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: ResNet50 only supports &#39;IMAGENET1K_V1&#39; weights by default. Ignoring &#39;</span><span class="si">{</span><span class="n">checkpoint</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">ResNet50_Weights</span><span class="o">.</span><span class="n">IMAGENET1K_V1</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">resnet50</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="c1"># Set to evaluation mode</span>
+        <span class="n">processor</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+        <span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported model_id: </span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Move model to GPU if available</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+    
+    <span class="n">_MODEL_CACHE</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">processor</span>
+
+<span class="c1"># --- Model-specific feature extraction functions ---</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_ecapa_embeddings</span><span class="p">(</span><span class="n">audio_segment</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">EncoderClassifier</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;final&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts embeddings from ECAPA-TDNN for a given audio segment and layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">signal</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">audio_segment</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+        <span class="n">signal</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Ensure model is in eval mode</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="o">==</span> <span class="s1">&#39;final&#39;</span><span class="p">:</span>
+            <span class="c1"># This corresponds to the `embedding` in your original script</span>
+            <span class="n">embeddings</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode_batch</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">embeddings</span>
+        <span class="k">if</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TDNN&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;SERes2Net1&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;SERes2Net2&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="s2">&quot;SERes2Net3&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span><span class="s2">&quot;MFA&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;AttentiveStatisticsPooling&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;AttentiveStatisticsPooling-BatchNorm1d&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;FC&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">()]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ECAPA-TDNN layer &#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">&#39; not found. Available block layers are TDNN, SERes2Net1, SERes2Net2, SERes2Net3, MFA, AttentiveStatisticsPooling, AttentiveStatisticsPooling-BatchNorm1d and FC.&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># For intermediate layers</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mods</span><span class="o">.</span><span class="n">compute_features</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+        <span class="n">signal_length</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">signal</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mods</span><span class="o">.</span><span class="n">mean_var_norm</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">signal_length</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        
+        <span class="n">block_outputs</span> <span class="o">=</span> <span class="p">[]</span>  
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">mods</span><span class="o">.</span><span class="n">embedding_model</span><span class="o">.</span><span class="n">blocks</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;tdnn&quot;</span> <span class="ow">and</span> <span class="n">idx</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;seres2net&quot;</span><span class="p">):</span>
+                <span class="n">block_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">layer_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;seres2net&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">block_idx</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">speechbrain</span><span class="o">.</span><span class="n">lobes</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ECAPA_TDNN</span><span class="o">.</span><span class="n">SERes2NetBlock</span><span class="p">):</span>
+                <span class="n">block_outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">aggregated_features</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">block_outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+        <span class="n">mfa_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mods</span><span class="o">.</span><span class="n">embedding_model</span><span class="o">.</span><span class="n">mfa</span><span class="p">(</span><span class="n">aggregated_features</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;mfa&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mfa_output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">pooled</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mods</span><span class="o">.</span><span class="n">embedding_model</span><span class="o">.</span><span class="n">asp</span><span class="p">(</span><span class="n">mfa_output</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;attentivestatisticspooling&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pooled</span><span class="p">))</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        
+        <span class="n">pooled</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mods</span><span class="o">.</span><span class="n">embedding_model</span><span class="o">.</span><span class="n">asp_bn</span><span class="p">(</span><span class="n">pooled</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;attentivestatisticspooling-batchnorm1d&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pooled</span><span class="p">))</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">embedding</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mods</span><span class="o">.</span><span class="n">embedding_model</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">pooled</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">embedding</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_whisper_embeddings</span><span class="p">(</span><span class="n">audio_segment</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">WhisperForConditionalGeneration</span><span class="p">,</span> <span class="n">processor</span><span class="p">:</span> <span class="n">WhisperProcessor</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;final&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts embeddings from Whisper model for a given audio segment and layer.</span>
+<span class="sd">    Handles &#39;encoder_layerX&#39; and &#39;decoder_layerX&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">audio_input</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span>
+        <span class="n">audio_segment</span><span class="p">,</span>
+        <span class="n">sampling_rate</span><span class="o">=</span><span class="mi">16000</span><span class="p">,</span>
+        <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span>
+        <span class="n">return_attention_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">return_token_timestamps</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        
+    <span class="p">)</span>
+    <span class="n">input_features</span><span class="o">=</span> <span class="n">audio_input</span><span class="p">[</span><span class="s1">&#39;input_features&#39;</span><span class="p">]</span>
+    <span class="n">num_frames</span><span class="o">=</span> <span class="n">audio_input</span><span class="p">[</span><span class="s2">&quot;num_frames&quot;</span><span class="p">]</span>
+    <span class="n">idx</span><span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">num_frames</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+        <span class="n">input_features</span> <span class="o">=</span> <span class="n">input_features</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+            <span class="n">input_features</span><span class="p">,</span> <span class="n">output_hidden_states</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_dict_in_generate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span> <span class="n">audio_input</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">layer_name</span> <span class="o">==</span> <span class="s1">&#39;final&#39;</span><span class="p">:</span>  
+            <span class="n">embedding_with_padding</span><span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">encoder_hidden_states</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">embedding_with_padding</span><span class="p">[:</span><span class="n">idx</span><span class="p">]</span> <span class="c1"># (sequence_length, hidden_size)</span>
+        
+        <span class="k">elif</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;encoder_layer&#39;</span><span class="p">):</span>
+            <span class="n">layer_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">layer_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;encoder_layer&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">layer_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">encoder_hidden_states</span><span class="p">):</span>
+                <span class="n">embedding_with_padding</span><span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">encoder_hidden_states</span><span class="p">[</span><span class="n">layer_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">embedding_with_padding</span><span class="p">[:</span><span class="n">idx</span><span class="p">]</span> <span class="c1"># (sequence_length, hidden_size)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Whisper encoder layer &#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">&#39; not found. &quot;</span>
+                                 <span class="sa">f</span><span class="s2">&quot;Max encoder layer is layer </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">encoder_hidden_states</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        
+        <span class="k">elif</span> <span class="n">layer_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;decoder_layer&#39;</span><span class="p">):</span>
+            <span class="n">layer_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">layer_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;decoder_layer&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+
+            <span class="n">decoder_hidden_states</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">decoder_hidden_states</span> <span class="c1"># (num_generated_tokens, num_decoder_layers, batch_size, sequence_length, hidden_size)</span>
+
+            <span class="k">if</span> <span class="n">layer_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">decoder_hidden_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="c1"># Check against number of layers</span>
+                <span class="c1"># Collect embeddings for the specified layer across all generated tokens</span>
+                <span class="n">layer_embeddings</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">decoder_hidden_states</span><span class="p">)):</span> <span class="c1">#Tuple (num_tokens, num_layers, batch, sequence_length, embedding_dim)   </span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">decoder_hidden_states</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">layer_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">])):</span>
+                        <span class="n">layer_embeddings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">decoder_hidden_states</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">layer_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">layer_embeddings</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">layer_embeddings</span><span class="p">)[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># remove embeddings corresponding to the special tokens</span>
+
+                <span class="k">return</span> <span class="n">layer_embeddings</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Whisper decoder layer &#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">&#39; not found. &quot;</span>
+                                 <span class="sa">f</span><span class="s2">&quot;Max decoder layer is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">decoder_hidden_states</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Whisper layer name &#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">&#39; not recognized. &quot;</span>
+                             <span class="s2">&quot;Use &#39;final encoder layer&#39;, &#39;encoder_layerX&#39;, or &#39;decoder_layerX&#39;.&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_resnet_embeddings</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">resnet50</span><span class="p">,</span> <span class="n">processor</span><span class="p">:</span> <span class="n">transforms</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;final&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">layer_name</span> <span class="o">==</span> <span class="s1">&#39;final&#39;</span><span class="p">:</span>
+        <span class="n">image_input</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Get features before final classification layer</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">image_input</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">features</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ResNet layer &#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">&#39; not supported yet only final layer is provided.&quot;</span><span class="p">)</span>
+    
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_clip_embeddings</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">CLIPModel</span><span class="p">,</span> <span class="n">processor</span><span class="p">:</span> <span class="n">AutoProcessor</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;final&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">layer_name</span> <span class="o">==</span> <span class="s1">&#39;final&#39;</span><span class="p">:</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+        <span class="c1"># CLIP&#39;s image features</span>
+        <span class="n">segment_features</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_image_features</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">segment_features</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;clip layer &#39;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">&#39; not supported yet only final layer is provided.&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Main Feature Extraction Function ---</span>
+
+<div class="viewcode-block" id="extract_features">
+<a class="viewcode-back" href="../../feature_extraction.html#neursen_reveal.feature_extraction.extract_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_features</span><span class="p">(</span>
+    <span class="n">bold_data_root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">stimuli_base_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">output_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">model_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;final&#39;</span><span class="p">,</span>
+    <span class="n">checkpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="c1"># TR duration in seconds</span>
+    <span class="n">task_of_interest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># instead of processing all files in the stimuli folder, specify the folders or files of interest </span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts AI model features for fMRI stimulus events based on _events.tsv files.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bold_data_root_dir: str</span>
+<span class="sd">        Path to the root of your BIDS dataset. This is used to find the tasks</span>
+<span class="sd">         `_events.tsv` files.</span>
+<span class="sd">    stimuli_base_dir : str</span>
+<span class="sd">        Path to the root directory containing your raw stimulus files</span>
+<span class="sd">        (e.g., &#39;data/stimuli/&#39;). Paths in `_events.tsv`&#39;s &#39;stim_file&#39; column</span>
+<span class="sd">        should be relative to this directory.</span>
+<span class="sd">    output_file_path : str</span>
+<span class="sd">        Path to the H5 file where extracted features will be saved.</span>
+<span class="sd">        Keys will be `functional_run_name` (e.g.,&#39;coco_run-01&#39;).</span>
+<span class="sd">    model_id : str</span>
+<span class="sd">        Identifier for the AI model to use (e.g., &#39;whisper&#39;, &#39;ecapa-tdnn&#39;, &#39;clip&#39;, &#39;resnet&#39;).</span>
+<span class="sd">    layer_name : str, optional</span>
+<span class="sd">        Specific layer from which to extract features. Defaults to &#39;final&#39;.</span>
+<span class="sd">        - For ECAPA-TDNN: &#39;final&#39;, &#39;TDNN&#39;, &#39;SERes2Net1&#39;, &#39;SERes2Net2&#39;,&#39;SERes2Net3&#39;, &#39;MFA&#39;,</span>
+<span class="sd">          &#39;AttentiveStatisticsPooling&#39;, &#39;AttentiveStatisticsPooling-BatchNorm1d&#39;, &#39;FC&#39;</span>
+<span class="sd">        - For Whisper: &#39;final&#39; (which is the encoder&#39;s final layer), &#39;encoder_layerX&#39;, &#39;decoder_layerX&#39;</span>
+<span class="sd">        - For CLIP and ResNet: Currently, only the &#39;final&#39; layer of the model&#39;s feature extractor is supported.</span>
+<span class="sd">    checkpoint : str, </span>
+<span class="sd">        Specific checkpoint/version of the model, Required if the selected model has multiple checkpoints (e.g., &#39;openai/whisper-large&#39;).</span>
+<span class="sd">    tr : float,</span>
+<span class="sd">        The TR (repetition time) duration of your fMRI data in seconds.</span>
+<span class="sd">        This is crucial for determining how to segment stimuli into TR-aligned features. Defaults to 2.0.</span>
+<span class="sd">    task_of_interest : str, optional</span>
+<span class="sd">        If provided, only `_events.tsv` files corresponding to this specific</span>
+<span class="sd">        task/run name will be processed.</span>
+<span class="sd">        If None, all tasks found will be processed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">model</span><span class="p">,</span> <span class="n">processor</span> <span class="o">=</span> <span class="n">_get_model_and_processor</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">)</span>
+    
+    <span class="c1"># Ensure model is on GPU if available and applicable</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Find all _events.tsv files in the BIDS dataset</span>
+    <span class="n">event_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bold_data_root_dir</span><span class="p">,</span> <span class="s1">&#39;sub-*&#39;</span><span class="p">,</span><span class="s1">&#39;ses-*&#39;</span><span class="p">,</span> <span class="s1">&#39;func&#39;</span><span class="p">,</span> <span class="s1">&#39;*_events.tsv&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event_files</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No *_events.tsv files found in &#39;</span><span class="si">{</span><span class="n">bold_data_root_dir</span><span class="si">:}</span><span class="s2">&#39;. &quot;</span>
+                                <span class="s2">&quot;Ensure your data follows BIDS structure with event files.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Use &#39;a&#39; mode for h5py to append to existing file or create if not exists</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">output_file_path</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+        <span class="c1"># Iterate over each event file</span>
+        <span class="k">for</span> <span class="n">event_file_path</span> <span class="ow">in</span> <span class="n">event_files</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Processing events file: </span><span class="si">{</span><span class="n">event_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="c1"># Derive the functional_run_name from the event file path</span>
+            <span class="n">filename_parts</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">event_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Find the &#39;task-&#39; part and extract the task name, and potentially run index</span>
+            <span class="n">functional_run_name_parts</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">filename_parts</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;task-&#39;</span><span class="p">):</span>
+                    <span class="n">functional_run_name_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;task-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">part</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;run-&#39;</span><span class="p">):</span> <span class="c1"># If &#39;run-X&#39; directly follows &#39;task-Y&#39;, append it</span>
+                    <span class="k">if</span> <span class="n">functional_run_name_parts</span><span class="p">:</span> <span class="c1"># only append run if a task was found</span>
+                         <span class="n">functional_run_name_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>     
+            <span class="n">functional_run_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">functional_run_name_parts</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">functional_run_name</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not determine functional run name from </span><span class="si">{</span><span class="n">event_file_path</span><span class="si">}</span><span class="s2">. Skipping.&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">task_of_interest</span> <span class="ow">and</span> <span class="n">functional_run_name</span> <span class="o">!=</span> <span class="n">task_of_interest</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping run &#39;</span><span class="si">{</span><span class="n">functional_run_name</span><span class="si">}</span><span class="s2">&#39; as it&#39;s not the task of interest (&#39;</span><span class="si">{</span><span class="n">task_of_interest</span><span class="si">}</span><span class="s2">&#39;).&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Check if this run&#39;s features already exist in the H5 file</span>
+            <span class="k">if</span> <span class="n">functional_run_name</span> <span class="ow">in</span> <span class="n">hf</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Features for &#39;</span><span class="si">{</span><span class="n">functional_run_name</span><span class="si">}</span><span class="s2">&#39; already exist in </span><span class="si">{</span><span class="n">output_file_path</span><span class="si">}</span><span class="s2">. Skipping.&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">events_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">event_file_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">events_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">events_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="s1">&#39;onset&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events_df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">or</span> <span class="s1">&#39;duration&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events_df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">or</span> <span class="s1">&#39;stim_file&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required columns (onset, duration, stim_file) not found in </span><span class="si">{</span><span class="n">event_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error reading or parsing </span><span class="si">{</span><span class="n">event_file_path</span><span class="si">}</span><span class="s2">. Skipping. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            
+
+            <span class="c1"># Determine the total number of TRs for this run from a corresponding BOLD file or from the total duration of the run</span>
+            <span class="n">bold_file_path</span><span class="o">=</span> <span class="n">event_file_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_events.tsv&quot;</span><span class="p">,</span> <span class="s2">&quot;_bold.dtseries.nii&quot;</span><span class="p">)</span>
+            <span class="n">matching_bold_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">bold_file_path</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">matching_bold_files</span><span class="p">:</span>
+                <span class="c1"># Load the first matching BOLD file to get its number of TRs</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">first_bold_nifti</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">matching_bold_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">num_TRs</span> <span class="o">=</span> <span class="n">first_bold_nifti</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Identified </span><span class="si">{</span><span class="n">num_TRs</span><span class="si">}</span><span class="s2"> TRs for run &#39;</span><span class="si">{</span><span class="n">functional_run_name</span><span class="si">}</span><span class="s2">&#39; from BOLD data.&quot;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error loading BOLD file &#39;</span><span class="si">{</span><span class="n">matching_bold_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; to get TR count. Skipping. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: No BOLD file found for functional run &#39;</span><span class="si">{</span><span class="n">functional_run_name</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                      <span class="s2">&quot;The number of TRs will be estimated from the duration information in the events.tsv file.&quot;</span><span class="p">)</span>
+                <span class="n">total_duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">events_df</span><span class="p">[</span><span class="s1">&#39;onset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">events_df</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">num_TRs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">total_duration</span> <span class="o">/</span> <span class="n">tr</span><span class="p">))</span>
+            <span class="n">feature_matrix</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">feature_dim</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">tr_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_TRs</span><span class="p">):</span>
+                <span class="n">tr_start</span> <span class="o">=</span> <span class="n">tr_idx</span> <span class="o">*</span> <span class="n">tr</span>
+                <span class="n">tr_end</span> <span class="o">=</span> <span class="n">tr_start</span> <span class="o">+</span> <span class="n">tr</span>
+                <span class="n">tr_features</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">events_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                    <span class="n">onset</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">stim_file</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;onset&#39;</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]),</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;stim_file&#39;</span><span class="p">]</span>
+                    <span class="n">stim_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stimuli_base_dir</span><span class="p">,</span> <span class="n">stim_file</span><span class="p">)</span>
+                    <span class="n">stim_start</span> <span class="o">=</span> <span class="n">onset</span>
+                    <span class="n">stim_end</span> <span class="o">=</span> <span class="n">onset</span> <span class="o">+</span> <span class="n">duration</span>
+
+                    <span class="c1"># Check if stimulus overlaps with current TR</span>
+                    <span class="n">overlap_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">tr_start</span><span class="p">,</span> <span class="n">stim_start</span><span class="p">)</span>
+                    <span class="n">overlap_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">tr_end</span><span class="p">,</span> <span class="n">stim_end</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">overlap_start</span> <span class="o">&lt;</span> <span class="n">overlap_end</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">stim_file</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.wav&#39;</span><span class="p">,</span> <span class="s1">&#39;.mp3&#39;</span><span class="p">,</span> <span class="s1">&#39;.flac&#39;</span><span class="p">)):</span>
+                            <span class="c1"># Load and resample audio</span>
+                            <span class="n">raw_audio</span><span class="p">,</span> <span class="n">original_sr</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">stim_file_path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">original_sr</span> <span class="o">!=</span> <span class="mi">16000</span><span class="p">:</span>
+                                <span class="n">audio_input</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">raw_audio</span><span class="p">,</span> <span class="n">orig_sr</span><span class="o">=</span><span class="n">original_sr</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="mi">16000</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">audio_input</span> <span class="o">=</span> <span class="n">raw_audio</span>
+
+                            <span class="c1"># Trim audio to the overlapping segment</span>
+                            <span class="n">segment_start</span> <span class="o">=</span> <span class="n">overlap_start</span> <span class="o">-</span> <span class="n">stim_start</span>
+                            <span class="n">segment_end</span> <span class="o">=</span> <span class="n">overlap_end</span> <span class="o">-</span> <span class="n">stim_start</span>
+                            <span class="n">start_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">segment_start</span> <span class="o">*</span> <span class="mi">16000</span><span class="p">)</span>
+                            <span class="n">end_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">segment_end</span> <span class="o">*</span> <span class="mi">16000</span><span class="p">)</span>
+                            <span class="n">audio_segment</span> <span class="o">=</span> <span class="n">audio_input</span><span class="p">[</span><span class="n">start_sample</span><span class="p">:</span><span class="n">end_sample</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ecapa-tdnn&#39;</span><span class="p">:</span>
+                                <span class="c1"># _extract_ecapa_embeddings returns (sequence_length, feature_dim) or (feature_dim,)</span>
+                                <span class="n">segment_features</span> <span class="o">=</span> <span class="n">_extract_ecapa_embeddings</span><span class="p">(</span><span class="n">audio_segment</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">)</span>
+                            
+                            <span class="k">elif</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;whisper&#39;</span><span class="p">):</span>
+
+                                <span class="n">segment_features</span> <span class="o">=</span> <span class="n">_extract_whisper_embeddings</span><span class="p">(</span><span class="n">audio_segment</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">)</span>
+
+                            <span class="c1"># Add other audio models here</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Audio model &#39;</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&#39; not yet implemented or misconfigured.&quot;</span><span class="p">)</span>
+
+                            <span class="k">if</span> <span class="n">segment_features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">segment_features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">tr_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segment_features</span><span class="p">)</span>
+
+                        <span class="k">elif</span> <span class="n">stim_file</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpeg&#39;</span><span class="p">,</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;.gif&#39;</span><span class="p">)):</span>
+                            <span class="c1"># --- Placeholder for Image Models (e.g., CLIP, ResNet) ---</span>
+                            <span class="c1"># You&#39;d add your image loading and processing logic here</span>
+                            <span class="c1"># Example for ResNet:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">stim_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+                                    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+                                <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                                    <span class="k">if</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;resnet&#39;</span><span class="p">:</span>
+                                        <span class="n">segment_features</span><span class="o">=</span> <span class="n">_extract_resnet_embeddings</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">)</span>
+                                    <span class="k">elif</span> <span class="n">model_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;clip&#39;</span><span class="p">:</span>
+                                        <span class="n">segment_features</span><span class="o">=</span> <span class="n">_extract_clip_embeddings</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">)</span>
+                                    <span class="k">else</span><span class="p">:</span>
+                                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Image model &#39;</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&#39; not yet implemented or misconfigured.&quot;</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">segment_features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                                    <span class="n">segment_features</span> <span class="o">=</span> <span class="n">segment_features</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># Make it (1, feature_dim) for a single image</span>
+                                <span class="n">tr_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">segment_features</span><span class="p">)</span>
+                            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing image file </span><span class="si">{</span><span class="n">stim_file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">. Skipping event.&quot;</span><span class="p">)</span>
+                                <span class="k">continue</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Image processing for &#39;</span><span class="si">{</span><span class="n">model_id</span><span class="si">}</span><span class="s2">&#39; is a placeholder. Skipping image event.&quot;</span><span class="p">)</span>
+                            <span class="k">continue</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Unsupported stimulus file type: </span><span class="si">{</span><span class="n">stim_file_path</span><span class="si">}</span><span class="s2">. Skipping event.&quot;</span><span class="p">)</span>
+                            <span class="k">continue</span>
+                <span class="c1"># Average features for current TR</span>
+                <span class="k">if</span> <span class="n">tr_features</span><span class="p">:</span>
+                    <span class="n">tr_features_concat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">tr_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># [N, feature_dim]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tr_features_concat</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">tr_features_mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">tr_features_concat</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>    <span class="c1"># [feature_dim]</span>
+                        <span class="n">tr_features_mean</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tr_features_mean</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tr_features_mean</span><span class="o">=</span> <span class="n">tr_features_concat</span>   
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Default to zeros if no features (use known or fallback dim)</span>
+                    <span class="n">tr_features_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">feature_dim</span><span class="p">)</span> <span class="k">if</span> <span class="n">feature_dim</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">768</span><span class="p">)</span>
+
+                <span class="c1"># Initialize feature_dim on first non-zero entry</span>
+                <span class="k">if</span> <span class="n">feature_dim</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">tr_features</span><span class="p">:</span>
+                    <span class="n">feature_dim</span> <span class="o">=</span> <span class="n">tr_features_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">vector</span> <span class="ow">in</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">feature_matrix</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">feature_dim</span><span class="p">:</span>
+                                <span class="n">padding_needed</span> <span class="o">=</span> <span class="n">feature_dim</span> <span class="o">-</span> <span class="n">vector</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                                <span class="n">standardized_tr_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding_needed</span><span class="p">),</span> <span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span> <span class="c1"># tr_vec.shape[0] &gt; feature_dim</span>
+                                <span class="n">standardized_tr_vec</span> <span class="o">=</span> <span class="n">vector</span><span class="p">[:</span><span class="n">feature_dim</span><span class="p">]</span>
+                            <span class="n">feature_matrix</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">=</span> <span class="n">standardized_tr_vec</span>
+                            
+                <span class="n">feature_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr_features_mean</span><span class="p">)</span>
+            
+            <span class="n">feature_matrix</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">feature_matrix</span><span class="p">)</span>
+                
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving features for run &#39;</span><span class="si">{</span><span class="n">functional_run_name</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">output_file_path</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            <span class="n">task</span><span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">functional_run_name</span><span class="p">)</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;feature_matrix&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">feature_matrix</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully processed and saved features for &#39;</span><span class="si">{</span><span class="n">functional_run_name</span><span class="si">}</span><span class="s2">&#39; with shape </span><span class="si">{</span><span class="n">feature_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No features extracted for functional run &#39;</span><span class="si">{</span><span class="n">functional_run_name</span><span class="si">}</span><span class="s2">&#39;. Not saving.&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Feature extraction complete. Output saved to: </span><span class="si">{</span><span class="n">output_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+    
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Nada Omran, Nouran Khattab, Youssef Shawky
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=7026087e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>
