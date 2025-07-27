@@ -263,6 +263,16 @@
 <span id="feature-extraction"></span><h1>Deep Feature Extraction Module<a class="headerlink" href="#deep-feature-extraction-module" title="Link to this heading">¶</a></h1>
 <p>The <cite>feature_extraction</cite> module within <cite>neursen_reveal</cite> is your gateway to leveraging state-of-the-art deep learning models for brain research. Instead of relying on hand-crafted, low-level stimulus features, this module allows you to extract rich, high-dimensional representations directly from your raw stimuli (e.g., audio files, images, videos).</p>
 <p>This is crucial because deep neural networks, particularly those trained on large datasets, learn complex, hierarchical representations that often mirror the processing stages found in biological brains. By extracting features from specific layers of these AI models, researchers can test hypotheses about functional specialization in the brain, investigate the neural encoding of semantic meaning, or compare computational principles between artificial and biological systems. This module provides a streamlined way to generate these powerful features, which then serve as the predictive variables in subsequent brain encoding models.</p>
+<section id="supported-models">
+<h2>Supported Models<a class="headerlink" href="#supported-models" title="Link to this heading">¶</a></h2>
+<p>The <cite>feature_extraction</cite> module currently supports the following pre-trained deep learning models for various modalities:</p>
+<ul class="simple">
+<li><p><strong>Speech:</strong> OpenAI Whisper Encoder (all checkpoints), ECAPA-TDNN</p></li>
+<li><p><strong>Language:</strong> OpenAI Whisper Decoder (all checkpoints)</p></li>
+<li><p><strong>Vision:</strong> ResNet50</p></li>
+<li><p><strong>Vision-Language Interaction:</strong> CLIP (all checkpoints)</p></li>
+</ul>
+</section>
 <section id="function-reference">
 <h2>Function Reference<a class="headerlink" href="#function-reference" title="Link to this heading">¶</a></h2>
 <p>The primary function in this module is <cite>extract_features</cite>.</p>
@@ -407,6 +417,7 @@ If None, all tasks found will be processed.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Deep Feature Extraction Module</a><ul>
+<li><a class="reference internal" href="#supported-models">Supported Models</a></li>
 <li><a class="reference internal" href="#function-reference">Function Reference</a><ul>
 <li><a class="reference internal" href="#neursen_reveal.feature_extraction.extract_features"><code class="docutils literal notranslate"><span class="pre">extract_features()</span></code></a></li>
 </ul>

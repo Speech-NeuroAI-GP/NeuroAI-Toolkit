@@ -7,6 +7,16 @@ The `feature_extraction` module within `neursen_reveal` is your gateway to lever
 
 This is crucial because deep neural networks, particularly those trained on large datasets, learn complex, hierarchical representations that often mirror the processing stages found in biological brains. By extracting features from specific layers of these AI models, researchers can test hypotheses about functional specialization in the brain, investigate the neural encoding of semantic meaning, or compare computational principles between artificial and biological systems. This module provides a streamlined way to generate these powerful features, which then serve as the predictive variables in subsequent brain encoding models.
 
+Supported Models
+----------------
+
+The `feature_extraction` module currently supports the following pre-trained deep learning models for various modalities:
+
+* **Speech:** OpenAI Whisper Encoder (all checkpoints), ECAPA-TDNN
+* **Language:** OpenAI Whisper Decoder (all checkpoints)
+* **Vision:** ResNet50
+* **Vision-Language Interaction:** CLIP (all checkpoints)
+
 Function Reference
 -------------------
 
