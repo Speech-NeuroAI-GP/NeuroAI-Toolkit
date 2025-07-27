@@ -266,12 +266,111 @@
 <section id="function-reference">
 <h2>Function Reference<a class="headerlink" href="#function-reference" title="Link to this heading">¶</a></h2>
 <p>This module includes functions for generating model scores, rendering these scores on brain surfaces, averaging model scores across subjects then rendering the averaged score on brain surface.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neursen_reveal.voxelwise_modeling.generate_scores_for_specific_model_across_subjects">
+<span class="sig-prename descclassname"><span class="pre">neursen_reveal.voxelwise_modeling.</span></span><span class="sig-name descname"><span class="pre">generate_scores_for_specific_model_across_subjects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Bold_dataset_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saving_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bold_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_EV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delayers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_runs_out</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neursen_reveal/voxelwise_modeling.html#generate_scores_for_specific_model_across_subjects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neursen_reveal.voxelwise_modeling.generate_scores_for_specific_model_across_subjects" title="Link to this definition">¶</a></dt>
+<dd><p>Orchestrates the entire voxel-wise modeling process for multiple subjects,
+adhering to a BIDS-like directory structure (<cite>sub-XX/ses-XX/func/.nii</cite>).</p>
+<p>This function iterates through subjects, prepares their BOLD and feature data,
+trains a <cite>VoxelWiseModeler</cite>, computes and saves R-squared scores,
+and optionally computes and saves explainable variance (EV).</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Bold_dataset_dir<span class="classifier">str</span></dt><dd><p>Path to the root directory containing subject BOLD data following BIDS.
+Expected structure: <cite>Bold_dataset_dir/sub-XX/ses-XX/func/*.nii</cite>.</p>
+</dd>
+<dt>features_file_path<span class="classifier">str</span></dt><dd><p>Full path to the HDF5 (.h5) file containing extracted stimuli features.</p>
+</dd>
+<dt>saving_dir<span class="classifier">str</span></dt><dd><p>Root directory where results (scores, best_alphas, EV) will be saved.
+Results will be organized by subject.</p>
+</dd>
+<dt>bold_test<span class="classifier">list, optional</span></dt><dd><p>A list of string identifiers
+that identify the BOLD signals to be used for testing.</p>
+</dd>
+<dt>save_EV<span class="classifier">bool, optional</span></dt><dd><p>If True, compute and save explainable variance (EV) for test runs.
+Defaults to False.</p>
+</dd>
+<dt>verbose<span class="classifier">bool, optional</span></dt><dd><p>If True, print detailed progress messages during execution. Defaults to True.</p>
+</dd>
+<dt>random_seed<span class="classifier">int, optional</span></dt><dd><p>Seed for reproducibility of model fitting and cross-validation.
+Defaults to None (no fixed seed).</p>
+</dd>
+<dt>delayers<span class="classifier">list, optional</span></dt><dd><p>List of time-step delays to use for the <cite>VoxelWiseModeler</cite>.
+Defaults to <cite>[1, 2, 3, 4]</cite>.</p>
+</dd>
+<dt>n_runs_out<span class="classifier">int, optional</span></dt><dd><p>Number of runs to leave out for validation in each cross-validation fold
+during model fitting. Defaults to 1 (Leave-One-Run-Out).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neursen_reveal.voxelwise_modeling.render_scores">
+<span class="sig-prename descclassname"><span class="pre">neursen_reveal.voxelwise_modeling.</span></span><span class="sig-name descname"><span class="pre">render_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'90%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Rendered</span> <span class="pre">R-squared</span> <span class="pre">Scores'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neursen_reveal/voxelwise_modeling.html#render_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neursen_reveal.voxelwise_modeling.render_scores" title="Link to this definition">¶</a></dt>
+<dd><p>Renders voxel-wise scores (e.g., R-squared) onto an inflated brain surface
+using <cite>nilearn.plotting.view_surf</cite>.</p>
+<p>This function assumes <cite>hcp_utils</cite> is configured correctly to provide
+mesh data (<cite>hcp.mesh.inflated</cite>, <cite>hcp.mesh.sulc</cite>) and cortex data.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>scores<span class="classifier">np.ndarray</span></dt><dd><p>A NumPy array of scores for each voxel/vertex.
+Shape: <cite>(n_voxels,)</cite>.</p>
+</dd>
+<dt>threshold<span class="classifier">str or float, optional</span></dt><dd><p>Threshold for displaying values on the surface map. Can be a percentage
+string (e.g., “90%”) or a float (e.g., 0.1). Defaults to “90%”.</p>
+</dd>
+<dt>title<span class="classifier">str, optional</span></dt><dd><p>Title for the rendered brain plot. Defaults to “Rendered R-squared Scores”.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>nilearn.plotting.html_view.HTMLView</dt><dd><p>An interactive HTML viewer object of the brain surface plot.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neursen_reveal.voxelwise_modeling.render_averaged_scores">
+<span class="sig-prename descclassname"><span class="pre">neursen_reveal.voxelwise_modeling.</span></span><span class="sig-name descname"><span class="pre">render_averaged_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'90%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Averaged</span> <span class="pre">Rendered</span> <span class="pre">R-squared</span> <span class="pre">Scores'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neursen_reveal/voxelwise_modeling.html#render_averaged_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neursen_reveal.voxelwise_modeling.render_averaged_scores" title="Link to this definition">¶</a></dt>
+<dd><p>Calculates the average R-squared scores across all subjects for a given model
+and renders them onto an inflated brain surface.</p>
+<p>This function expects <cite>data_dir</cite> to contain subdirectories, each with a
+<cite>scores.npy</cite> file for a different subject.</p>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>data_dir<span class="classifier">str</span></dt><dd><p>The path to the directory containing subject-specific score subdirectories.
+Expected structure: <cite>data_dir/sub-XX/scores.npy</cite>.</p>
+</dd>
+<dt>threshold<span class="classifier">str or float, optional</span></dt><dd><p>Threshold for displaying values on the surface map. Can be a percentage
+string (e.g., “90%”) or a float (e.g., 0.1). Defaults to “90%”.</p>
+</dd>
+<dt>title<span class="classifier">str, optional</span></dt><dd><p>Title for the rendered brain plot. Defaults to “Averaged Rendered R-squared Scores”.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>nilearn.plotting.html_view.HTMLView</dt><dd><p>An interactive HTML viewer object of the averaged brain surface plot.
+Returns None if rendering fails.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
 </section>
 <section id="example-usage">
 <h2>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading">¶</a></h2>
 <p>This example illustrates the two-step process: first, generating voxel-wise R-squared scores, and then visualizing the averaged results across subjects on a brain surface.</p>
 <blockquote>
-<div><p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a></p>
+<div><p><a href="#id4"><span class="problematic" id="id5">``</span></a><a href="#id6"><span class="problematic" id="id7">`</span></a></p>
 <p>from neursen_reveal.voxelwise_modeling import generate_scores_for_specific_model_across_subjects</p>
 <p>from neursen_reveal.voxelwise_modeling import render_averaged_scores</p>
 <p>import os</p>
@@ -368,7 +467,12 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Voxel-wise Modeling Module</a><ul>
-<li><a class="reference internal" href="#function-reference">Function Reference</a></li>
+<li><a class="reference internal" href="#function-reference">Function Reference</a><ul>
+<li><a class="reference internal" href="#neursen_reveal.voxelwise_modeling.generate_scores_for_specific_model_across_subjects"><code class="docutils literal notranslate"><span class="pre">generate_scores_for_specific_model_across_subjects()</span></code></a></li>
+<li><a class="reference internal" href="#neursen_reveal.voxelwise_modeling.render_scores"><code class="docutils literal notranslate"><span class="pre">render_scores()</span></code></a></li>
+<li><a class="reference internal" href="#neursen_reveal.voxelwise_modeling.render_averaged_scores"><code class="docutils literal notranslate"><span class="pre">render_averaged_scores()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#example-usage">Example Usage</a></li>
 </ul>
 </li>

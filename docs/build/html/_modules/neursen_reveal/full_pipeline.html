@@ -1,0 +1,621 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.07.19 -->
+        <title>neursen_reveal.full_pipeline - neusen_reveal 0.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=25af2a20" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">neusen_reveal 0.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">neusen_reveal 0.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_formats.html">Data Preparation: Understanding Expected Formats</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Core Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cleaning.html">fMRI Data Cleaning Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../feature_extraction.html">Deep Feature Extraction Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Voxel-wise Modeling Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stats.html">Statistical Significance Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parcellation.html">Brain Parcellation and Plotting Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rsa.html">Representational Similarity Analysis (RSA) Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_pipeline.html">Full Unified Voxel-wise Modeling Pipeline</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../example_usage.html">Comprehensive Example Usage (Colab Notebook)</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for neursen_reveal.full_pipeline</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span> <span class="c1"># For checking feature file content</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="c1"># Import functions from your existing scripts</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neursen_reveal.fmri_cleaning</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_cleaning_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neursen_reveal.feature_extraction</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_features</span> <span class="c1"># Assuming feature_extraction.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neursen_reveal.voxelwise_modeling</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_scores_for_specific_model_across_subjects</span><span class="p">,</span> <span class="n">render_averaged_scores</span><span class="p">,</span> <span class="n">render_scores</span> <span class="c1"># Assuming voxelwise_modeling.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neursen_reveal.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_significant_model_scores</span> <span class="c1"># Assuming stats.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neursen_reveal.parcellation</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_parcellation_of_peak_intensity_regions</span>
+
+
+<div class="viewcode-block" id="run_full_voxelwise_pipeline">
+<a class="viewcode-back" href="../../full_pipeline.html#neursen_reveal.full_pipeline.run_full_voxelwise_pipeline">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_full_voxelwise_pipeline</span><span class="p">(</span>
+    <span class="n">bids_data_root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">output_base_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">voxelwise_model_bold_test_runs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">precomputed_features_h5_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">stimuli_base_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ai_model_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ai_layer_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;final&#39;</span><span class="p">,</span>
+    <span class="n">ai_model_checkpoint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">voxelwise_model_delayers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="n">voxelwise_model_n_runs_out</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">perform_cleaning</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="c1"># Flag to enable/disable cleaning</span>
+    <span class="n">selected_confounds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">smoothing_kernel_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">left_surface_template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">right_surface_template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">statistical_significance_testing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">significance_alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">plot_threshold</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;90%&quot;</span><span class="p">,</span>
+    <span class="n">pipeline_title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Voxel-wise Modeling Results&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Executes a comprehensive fMRI voxel-wise modeling pipeline.</span>
+
+<span class="sd">    This function orchestrates a multi-stage process:</span>
+<span class="sd">    1. **Optional Data Cleaning:** Applies confound regression and/or spatial smoothing</span>
+<span class="sd">       to BOLD data using `run_cleaning_pipeline` if specified.</span>
+<span class="sd">    2. **Feature Extraction (Conditional):** If a precomputed feature file is not provided,</span>
+<span class="sd">       it extracts AI model features from stimuli using `extract_features`.</span>
+<span class="sd">    3. **Voxel-wise Modeling:** Trains a `VoxelWiseModeler` and computes R-squared scores</span>
+<span class="sd">       across subjects using `generate_scores_for_specific_model_across_subjects`.</span>
+<span class="sd">    4. **Statistical Significance Testing (Conditional):** If enabled, it identifies</span>
+<span class="sd">       statistically significant voxels using `get_significant_model_scores`.</span>
+<span class="sd">    5. **Visualization:** Renders brain maps of the results onto an inflated surface,</span>
+<span class="sd">       either showing significant regions parcellated by network or averaged scores,</span>
+<span class="sd">       and also provides a general rendering of the scores.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bids_data_root_dir : str</span>
+<span class="sd">        Path to the root directory of your BIDS-formatted fMRI dataset.</span>
+<span class="sd">        This should contain `sub-*` folders. If cleaning is performed, this</span>
+<span class="sd">        should be the fMRIPrep output directory.</span>
+<span class="sd">    output_base_dir : str</span>
+<span class="sd">        The root directory where all generated outputs (cleaned data,</span>
+<span class="sd">        extracted features, voxel-wise model scores, and plots) will be saved.</span>
+<span class="sd">        Structure: `output_base_dir/cleaned_data/`, `output_base_dir/features/`,</span>
+<span class="sd">        `output_base_dir/voxelwise_results/&lt;model_id&gt;/`.</span>
+<span class="sd">    voxelwise_model_bold_test_runs : list[str], optional</span>
+<span class="sd">        A list of string identifiers (e.g., &#39;task-auditory&#39;) that identify the</span>
+<span class="sd">        BOLD signals to be used for testing within the voxel-wise model.</span>
+<span class="sd">    precomputed_features_h5_path : str, optional</span>
+<span class="sd">        Path to an existing HDF5 (.h5) file containing precomputed AI features.</span>
+<span class="sd">        If provided, `stimuli_base_dir`, `ai_model_id`, `ai_layer_name`,</span>
+<span class="sd">        `ai_model_checkpoint`, and `tr` will be ignored for feature extraction.</span>
+<span class="sd">        Defaults to None.</span>
+<span class="sd">    stimuli_base_dir : str, optional</span>
+<span class="sd">        Path to the root directory containing your raw stimulus files (e.g., &#39;data/stimuli/&#39;).</span>
+<span class="sd">        Required if `precomputed_features_h5_path` is None and feature extraction is needed.</span>
+<span class="sd">    ai_model_id : str, optional</span>
+<span class="sd">        Identifier for the AI model to use for feature extraction (e.g., &#39;whisper&#39;, &#39;ecapa-tdnn&#39;, &#39;clip&#39;).</span>
+<span class="sd">        Required if `precomputed_features_h5_path` is None.</span>
+<span class="sd">    ai_layer_name : str, optional</span>
+<span class="sd">        Specific layer from which to extract features. Defaults to &#39;final&#39;.</span>
+<span class="sd">        See `feature_extraction.extract_features` for supported layers per model.</span>
+<span class="sd">    ai_model_checkpoint : str, optional</span>
+<span class="sd">        Specific checkpoint/version of the AI model (e.g., &#39;openai/whisper-large&#39;).</span>
+<span class="sd">        Required if the selected model has multiple checkpoints.</span>
+<span class="sd">    tr : float, optional</span>
+<span class="sd">        The TR (repetition time) duration of your fMRI data in seconds.</span>
+<span class="sd">        Used for TR-alignment during feature extraction. Defaults to 2.0.</span>
+<span class="sd">    voxelwise_model_delayers : list[int], optional</span>
+<span class="sd">        List of time-step delays to use for the `VoxelWiseModeler`. Defaults to `[1, 2, 3, 4]`.</span>
+<span class="sd">    voxelwise_model_n_runs_out : int, optional</span>
+<span class="sd">        Number of runs to leave out for validation in each cross-validation fold</span>
+<span class="sd">        during model fitting. Defaults to 1 (Leave-One-Run-Out).</span>
+<span class="sd">    perform_cleaning : bool, optional</span>
+<span class="sd">        If True, the data cleaning pipeline (`run_cleaning_pipeline`) will be executed</span>
+<span class="sd">        before voxel-wise modeling. Defaults to False.</span>
+<span class="sd">    selected_confounds : list[str], optional</span>
+<span class="sd">        List of confound regressors to use for cleaning (e.g., [&#39;trans_x&#39;, &#39;trans_y&#39;]).</span>
+<span class="sd">        Only relevant if `perform_cleaning` is True. If None, no confound regression.</span>
+<span class="sd">    smoothing_kernel_size : int, optional</span>
+<span class="sd">        FWHM smoothing kernel size in millimeters. Only relevant if `perform_cleaning`</span>
+<span class="sd">        is True. If None, no spatial smoothing.</span>
+<span class="sd">    left_surface_template : str</span>
+<span class="sd">        Absolute path to the left hemisphere GIFTI surface file (e.g., a FreeSurfer</span>
+<span class="sd">        `fsaverage`/`conte69` surface, or HCP-Minn `fs_LR.32k` surface).</span>
+<span class="sd">        Required for smoothing if `smoothing_kernel_size` is provided.</span>
+<span class="sd">    right_surface_template : str</span>
+<span class="sd">        Absolute path to the right hemisphere GIFTI surface file, similar to `left_surface_template`.</span>
+<span class="sd">        Required for smoothing if `smoothing_kernel_size` is provided.</span>
+<span class="sd">    statistical_significance_testing : bool, optional</span>
+<span class="sd">        If True, `get_significant_model_scores` will be used to identify and plot</span>
+<span class="sd">        only statistically significant voxels. If False, the averaged scores</span>
+<span class="sd">        (`render_averaged_scores`) will be plotted. Defaults to True.</span>
+<span class="sd">    significance_alpha : float, optional</span>
+<span class="sd">        The significance level (alpha) for FDR correction during statistical</span>
+<span class="sd">        testing. Only relevant if `statistical_significance_testing` is True.</span>
+<span class="sd">        Defaults to 0.05.</span>
+<span class="sd">    plot_threshold : Union[float, str], optional</span>
+<span class="sd">        Threshold for displaying values on the brain surface maps. Can be a percentage</span>
+<span class="sd">        string (e.g., &quot;90%&quot;) or a float (e.g., 0.1). Defaults to &quot;90%&quot;.</span>
+<span class="sd">    pipeline_title : str, optional</span>
+<span class="sd">        A general title for the entire pipeline&#39;s results, used in plots.</span>
+<span class="sd">        Defaults to &quot;Voxel-wise Modeling Results&quot;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The function saves results (cleaned data, features, scores) to disk</span>
+<span class="sd">        and displays interactive brain plots.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If required parameters for feature extraction are missing when</span>
+<span class="sd">        `precomputed_features_h5_path` is None.</span>
+<span class="sd">        If `perform_cleaning` is True but `left_surface_template` or</span>
+<span class="sd">        `right_surface_template` are not provided.</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If specified paths (e.g., `bids_data_root_dir`, `stimuli_base_dir`,</span>
+<span class="sd">        surface templates) do not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Starting Full Voxel-wise Modeling Pipeline: </span><span class="si">{</span><span class="n">pipeline_title</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --- 1. Determine BOLD Data Source ---</span>
+    <span class="n">current_bold_data_dir</span> <span class="o">=</span> <span class="n">bids_data_root_dir</span>
+    <span class="n">cleaned_output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_base_dir</span><span class="p">,</span> <span class="s1">&#39;cleaned_bids_data&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">perform_cleaning</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">left_surface_template</span> <span class="ow">and</span> <span class="n">right_surface_template</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Surface templates (left_surface_template, right_surface_template) &quot;</span>
+                <span class="s2">&quot;are required for cleaning with smoothing.&quot;</span>
+            <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 1: Performing BOLD Data Cleaning ---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Input BOLD data from: </span><span class="si">{</span><span class="n">bids_data_root_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Saving cleaned data to: </span><span class="si">{</span><span class="n">cleaned_output_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Confounds selected: </span><span class="si">{</span><span class="n">selected_confounds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Smoothing kernel: </span><span class="si">{</span><span class="n">smoothing_kernel_size</span><span class="si">}</span><span class="s2"> mm FWHM&quot;</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">cleaned_output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">run_cleaning_pipeline</span><span class="p">(</span>
+                <span class="n">bids_fmriprep_root_dir</span><span class="o">=</span><span class="n">bids_data_root_dir</span><span class="p">,</span>
+                <span class="n">output_base_dir</span><span class="o">=</span><span class="n">cleaned_output_dir</span><span class="p">,</span>
+                <span class="n">left_surface_template</span><span class="o">=</span><span class="n">left_surface_template</span><span class="p">,</span>
+                <span class="n">right_surface_template</span><span class="o">=</span><span class="n">right_surface_template</span><span class="p">,</span>
+                <span class="n">selected_confounds</span><span class="o">=</span><span class="n">selected_confounds</span><span class="p">,</span>
+                <span class="n">smoothing_kernel_size</span><span class="o">=</span><span class="n">smoothing_kernel_size</span><span class="p">,</span>
+                <span class="c1"># Consider adding target_subject/session/task_ids if needed for cleaning</span>
+            <span class="p">)</span>
+            <span class="n">current_bold_data_dir</span> <span class="o">=</span> <span class="n">cleaned_output_dir</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaning complete. Proceeding with cleaned data from: </span><span class="si">{</span><span class="n">current_bold_data_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during cleaning pipeline: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="c1"># Re-raise the exception to stop the pipeline</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 1: Skipping BOLD Data Cleaning (using original data) ---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Using BOLD data from: </span><span class="si">{</span><span class="n">current_bold_data_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --- 2. Feature Extraction ---</span>
+    <span class="n">features_h5_path</span> <span class="o">=</span> <span class="n">precomputed_features_h5_path</span>
+    <span class="k">if</span> <span class="n">features_h5_path</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 2: Using Precomputed Features ---&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">features_h5_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precomputed features file not found: </span><span class="si">{</span><span class="n">features_h5_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Loading features from: </span><span class="si">{</span><span class="n">features_h5_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 2: Extracting AI Features On-the-Fly ---&quot;</span><span class="p">)</span>
+        <span class="n">features_output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_base_dir</span><span class="p">,</span> <span class="s1">&#39;extracted_features&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">features_output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Construct a meaningful filename for the extracted features</span>
+        <span class="n">model_name_for_file</span> <span class="o">=</span> <span class="n">ai_model_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">ai_model_id</span> <span class="k">else</span> <span class="s1">&#39;unknown_model&#39;</span>
+        <span class="n">layer_name_for_file</span> <span class="o">=</span> <span class="n">ai_layer_name</span> <span class="k">if</span> <span class="n">ai_layer_name</span> <span class="k">else</span> <span class="s1">&#39;final&#39;</span>
+        <span class="n">features_h5_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">features_output_dir</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name_for_file</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">layer_name_for_file</span><span class="si">}</span><span class="s2">_features.h5&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">stimuli_base_dir</span><span class="p">,</span> <span class="n">ai_model_id</span><span class="p">,</span> <span class="n">tr</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;For on-the-fly feature extraction, &#39;stimuli_base_dir&#39;, &quot;</span>
+                <span class="s2">&quot;&#39;ai_model_id&#39;, and &#39;tr&#39; are required parameters.&quot;</span>
+            <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Extracting features with Model: </span><span class="si">{</span><span class="n">ai_model_id</span><span class="si">}</span><span class="s2">, Layer: </span><span class="si">{</span><span class="n">ai_layer_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Stimuli Base Directory: </span><span class="si">{</span><span class="n">stimuli_base_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Saving extracted features to: </span><span class="si">{</span><span class="n">features_h5_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">extract_features</span><span class="p">(</span>
+                <span class="n">bold_data_root_dir</span><span class="o">=</span><span class="n">bids_data_root_dir</span><span class="p">,</span> <span class="c1"># Use original BIDS root to find events.tsv</span>
+                <span class="n">stimuli_base_dir</span><span class="o">=</span><span class="n">stimuli_base_dir</span><span class="p">,</span>
+                <span class="n">output_file_path</span><span class="o">=</span><span class="n">features_h5_path</span><span class="p">,</span>
+                <span class="n">model_id</span><span class="o">=</span><span class="n">ai_model_id</span><span class="p">,</span>
+                <span class="n">layer_name</span><span class="o">=</span><span class="n">ai_layer_name</span><span class="p">,</span>
+                <span class="n">checkpoint</span><span class="o">=</span><span class="n">ai_model_checkpoint</span><span class="p">,</span>
+                <span class="n">tr</span><span class="o">=</span><span class="n">tr</span><span class="p">,</span>
+                <span class="c1"># task_of_interest=... # Add if you need to limit feature extraction to specific tasks</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature extraction complete.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during feature extraction: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span>
+
+    <span class="c1"># --- 3. Voxel-wise Modeling ---</span>
+    <span class="n">voxelwise_results_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_base_dir</span><span class="p">,</span> <span class="s1">&#39;voxelwise_results&#39;</span><span class="p">)</span>
+    <span class="c1"># If a model ID was used for feature extraction, use it for the results subdirectory</span>
+    <span class="n">model_results_specific_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">voxelwise_results_dir</span><span class="p">,</span> <span class="n">model_name_for_file</span> <span class="k">if</span> <span class="n">ai_model_id</span> <span class="k">else</span> <span class="s1">&#39;unknown_model&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">model_results_specific_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 3: Performing Voxel-wise Modeling ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  BOLD data source: </span><span class="si">{</span><span class="n">current_bold_data_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Features source: </span><span class="si">{</span><span class="n">features_h5_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Saving model scores to: </span><span class="si">{</span><span class="n">model_results_specific_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">generate_scores_for_specific_model_across_subjects</span><span class="p">(</span>
+            <span class="n">Bold_dataset_dir</span><span class="o">=</span><span class="n">current_bold_data_dir</span><span class="p">,</span>
+            <span class="n">features_file_path</span><span class="o">=</span><span class="n">features_h5_path</span><span class="p">,</span>
+            <span class="n">saving_dir</span><span class="o">=</span><span class="n">model_results_specific_dir</span><span class="p">,</span>
+            <span class="n">save_EV</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># As per original request, EV is not explicitly handled for saving</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="c1"># You can make this a pipeline parameter if desired</span>
+            <span class="n">delayers</span><span class="o">=</span><span class="n">voxelwise_model_delayers</span><span class="p">,</span>
+            <span class="n">bold_test</span><span class="o">=</span><span class="n">voxelwise_model_bold_test_runs</span><span class="p">,</span>
+            <span class="n">n_runs_out</span><span class="o">=</span><span class="n">voxelwise_model_n_runs_out</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Voxel-wise modeling complete. Scores generated for each subject.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during voxel-wise modeling: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span>
+
+    <span class="c1"># --- 4. Statistical Significance Testing &amp; Visualization ---</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 4: Visualizing Results ---&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">statistical_significance_testing</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Performing statistical significance testing (alpha=</span><span class="si">{</span><span class="n">significance_alpha</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># get_significant_model_scores returns a single array of significant mean scores</span>
+            <span class="n">significant_scores_map</span> <span class="o">=</span> <span class="n">get_significant_model_scores</span><span class="p">(</span>
+                <span class="n">results_dir</span><span class="o">=</span><span class="n">model_results_specific_dir</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="n">significance_alpha</span>
+            <span class="p">)</span>
+            
+            <span class="c1"># Save the significant scores map</span>
+            <span class="n">significant_scores_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_specific_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;significant_scores_alpha_</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">significance_alpha</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">significant_scores_path</span><span class="p">,</span> <span class="n">significant_scores_map</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Statistically significant scores saved to: </span><span class="si">{</span><span class="n">significant_scores_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Plotting significant regions parcellated by network (threshold: </span><span class="si">{</span><span class="n">plot_threshold</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+            <span class="n">parcellated_view</span> <span class="o">=</span> <span class="n">plot_parcellation_of_peak_intensity_regions</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">significant_scores_map</span><span class="p">,</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">plot_threshold</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Interactive parcellation plot generated (display in notebook/browser).&quot;</span><span class="p">)</span>
+            <span class="c1"># You might want to save this HTML view if not in a notebook</span>
+            <span class="c1"># parcellated_view.save_as_html(os.path.join(model_results_specific_dir, &#39;significant_parcellated_regions.html&#39;))</span>
+
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Rendering significant scores on surface (threshold: </span><span class="si">{</span><span class="n">plot_threshold</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+            <span class="c1"># render_scores expects a single scores array</span>
+            <span class="n">rendered_significant_view</span> <span class="o">=</span> <span class="n">render_scores</span><span class="p">(</span>
+                <span class="n">scores</span><span class="o">=</span><span class="n">significant_scores_map</span><span class="p">,</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">plot_threshold</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pipeline_title</span><span class="si">}</span><span class="s2"> - Significant Scores (alpha=</span><span class="si">{</span><span class="n">significance_alpha</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Interactive surface plot of significant scores generated (display in notebook/browser).&quot;</span><span class="p">)</span>
+            <span class="c1"># rendered_significant_view.save_as_html(os.path.join(model_results_specific_dir, &#39;significant_scores_render.html&#39;))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during statistical testing or plotting significant scores: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># Decide whether to raise or just log and continue</span>
+            <span class="k">raise</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Skipping statistical significance testing (plotting averaged scores)...&quot;</span><span class="p">)</span>
+        <span class="c1"># render_averaged_scores function already handles loading, averaging, and rendering</span>
+        <span class="c1"># It also implicitly saves an &#39;average_scores.npy&#39; in the results_dir.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Rendering averaged scores on surface (threshold: </span><span class="si">{</span><span class="n">plot_threshold</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+            <span class="n">averaged_rendered_view</span> <span class="o">=</span> <span class="n">render_averaged_scores</span><span class="p">(</span>
+                <span class="n">data_dir</span><span class="o">=</span><span class="n">model_results_specific_dir</span><span class="p">,</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">plot_threshold</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pipeline_title</span><span class="si">}</span><span class="s2"> - Averaged R-squared Scores&quot;</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Interactive surface plot of averaged scores generated (display in notebook/browser).&quot;</span><span class="p">)</span>
+            <span class="c1"># averaged_rendered_view.save_as_html(os.path.join(model_results_specific_dir, &#39;averaged_scores_render.html&#39;))</span>
+
+            <span class="c1"># # Load the saved averaged scores to pass to parcellation plot</span>
+            <span class="n">average_scores_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_results_specific_dir</span><span class="p">,</span> <span class="s1">&#39;average_scores.npy&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">average_scores_path</span><span class="p">):</span>
+                <span class="n">averaged_scores_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">average_scores_path</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Plotting averaged regions parcellated by network (threshold: </span><span class="si">{</span><span class="n">plot_threshold</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+                <span class="n">parcellated_averaged_view</span> <span class="o">=</span> <span class="n">plot_parcellation_of_peak_intensity_regions</span><span class="p">(</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">averaged_scores_data</span><span class="p">,</span>
+                    <span class="n">threshold</span><span class="o">=</span><span class="n">plot_threshold</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Interactive parcellation plot of averaged scores generated (display in notebook/browser).&quot;</span><span class="p">)</span>
+            <span class="c1">#     # parcellated_averaged_view.save_as_html(os.path.join(model_results_specific_dir, &#39;averaged_parcellated_regions.html&#39;))</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     print(f&quot;Warning: &#39;average_scores.npy&#39; not found at {average_scores_path}. Cannot plot parcellation of averaged scores.&quot;)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during rendering averaged scores or parcellation: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># Decide whether to raise or just log and continue</span>
+            <span class="k">raise</span>
+
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Full Voxel-wise Modeling Pipeline Finished for: </span><span class="si">{</span><span class="n">pipeline_title</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All results saved in: </span><span class="si">{</span><span class="n">output_base_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Nada Omran, Nouran Khattab, Youssef Shawky
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=7026087e"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

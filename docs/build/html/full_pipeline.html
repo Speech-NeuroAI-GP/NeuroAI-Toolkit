@@ -271,6 +271,121 @@
 <section id="function-reference">
 <h2>Function Reference<a class="headerlink" href="#function-reference" title="Link to this heading">¶</a></h2>
 <p>The comprehensive function for running the full pipeline is <cite>run_full_voxelwise_pipeline</cite>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neursen_reveal.full_pipeline.run_full_voxelwise_pipeline">
+<span class="sig-prename descclassname"><span class="pre">neursen_reveal.full_pipeline.</span></span><span class="sig-name descname"><span class="pre">run_full_voxelwise_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bids_data_root_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxelwise_model_bold_test_runs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputed_features_h5_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stimuli_base_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ai_model_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ai_layer_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'final'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ai_model_checkpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxelwise_model_delayers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxelwise_model_n_runs_out</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perform_cleaning</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_confounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothing_kernel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_surface_template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_surface_template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">statistical_significance_testing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significance_alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'90%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipeline_title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Voxel-wise</span> <span class="pre">Modeling</span> <span class="pre">Results'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/neursen_reveal/full_pipeline.html#run_full_voxelwise_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neursen_reveal.full_pipeline.run_full_voxelwise_pipeline" title="Link to this definition">¶</a></dt>
+<dd><p>Executes a comprehensive fMRI voxel-wise modeling pipeline.</p>
+<p>This function orchestrates a multi-stage process:
+1. <strong>Optional Data Cleaning:</strong> Applies confound regression and/or spatial smoothing</p>
+<blockquote>
+<div><p>to BOLD data using <cite>run_cleaning_pipeline</cite> if specified.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Feature Extraction (Conditional):</strong> If a precomputed feature file is not provided,
+it extracts AI model features from stimuli using <cite>extract_features</cite>.</p></li>
+<li><p><strong>Voxel-wise Modeling:</strong> Trains a <cite>VoxelWiseModeler</cite> and computes R-squared scores
+across subjects using <cite>generate_scores_for_specific_model_across_subjects</cite>.</p></li>
+<li><p><strong>Statistical Significance Testing (Conditional):</strong> If enabled, it identifies
+statistically significant voxels using <cite>get_significant_model_scores</cite>.</p></li>
+<li><p><strong>Visualization:</strong> Renders brain maps of the results onto an inflated surface,
+either showing significant regions parcellated by network or averaged scores,
+and also provides a general rendering of the scores.</p></li>
+</ol>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>bids_data_root_dir<span class="classifier">str</span></dt><dd><p>Path to the root directory of your BIDS-formatted fMRI dataset.
+This should contain <cite>sub-*</cite> folders. If cleaning is performed, this
+should be the fMRIPrep output directory.</p>
+</dd>
+<dt>output_base_dir<span class="classifier">str</span></dt><dd><p>The root directory where all generated outputs (cleaned data,
+extracted features, voxel-wise model scores, and plots) will be saved.
+Structure: <cite>output_base_dir/cleaned_data/</cite>, <cite>output_base_dir/features/</cite>,
+<cite>output_base_dir/voxelwise_results/&lt;model_id&gt;/</cite>.</p>
+</dd>
+<dt>voxelwise_model_bold_test_runs<span class="classifier">list[str], optional</span></dt><dd><p>A list of string identifiers (e.g., ‘task-auditory’) that identify the
+BOLD signals to be used for testing within the voxel-wise model.</p>
+</dd>
+<dt>precomputed_features_h5_path<span class="classifier">str, optional</span></dt><dd><p>Path to an existing HDF5 (.h5) file containing precomputed AI features.
+If provided, <cite>stimuli_base_dir</cite>, <cite>ai_model_id</cite>, <cite>ai_layer_name</cite>,
+<cite>ai_model_checkpoint</cite>, and <cite>tr</cite> will be ignored for feature extraction.
+Defaults to None.</p>
+</dd>
+<dt>stimuli_base_dir<span class="classifier">str, optional</span></dt><dd><p>Path to the root directory containing your raw stimulus files (e.g., ‘data/stimuli/’).
+Required if <cite>precomputed_features_h5_path</cite> is None and feature extraction is needed.</p>
+</dd>
+<dt>ai_model_id<span class="classifier">str, optional</span></dt><dd><p>Identifier for the AI model to use for feature extraction (e.g., ‘whisper’, ‘ecapa-tdnn’, ‘clip’).
+Required if <cite>precomputed_features_h5_path</cite> is None.</p>
+</dd>
+<dt>ai_layer_name<span class="classifier">str, optional</span></dt><dd><p>Specific layer from which to extract features. Defaults to ‘final’.
+See <cite>feature_extraction.extract_features</cite> for supported layers per model.</p>
+</dd>
+<dt>ai_model_checkpoint<span class="classifier">str, optional</span></dt><dd><p>Specific checkpoint/version of the AI model (e.g., ‘openai/whisper-large’).
+Required if the selected model has multiple checkpoints.</p>
+</dd>
+<dt>tr<span class="classifier">float, optional</span></dt><dd><p>The TR (repetition time) duration of your fMRI data in seconds.
+Used for TR-alignment during feature extraction. Defaults to 2.0.</p>
+</dd>
+<dt>voxelwise_model_delayers<span class="classifier">list[int], optional</span></dt><dd><p>List of time-step delays to use for the <cite>VoxelWiseModeler</cite>. Defaults to <cite>[1, 2, 3, 4]</cite>.</p>
+</dd>
+<dt>voxelwise_model_n_runs_out<span class="classifier">int, optional</span></dt><dd><p>Number of runs to leave out for validation in each cross-validation fold
+during model fitting. Defaults to 1 (Leave-One-Run-Out).</p>
+</dd>
+<dt>perform_cleaning<span class="classifier">bool, optional</span></dt><dd><p>If True, the data cleaning pipeline (<cite>run_cleaning_pipeline</cite>) will be executed
+before voxel-wise modeling. Defaults to False.</p>
+</dd>
+<dt>selected_confounds<span class="classifier">list[str], optional</span></dt><dd><p>List of confound regressors to use for cleaning (e.g., [‘trans_x’, ‘trans_y’]).
+Only relevant if <cite>perform_cleaning</cite> is True. If None, no confound regression.</p>
+</dd>
+<dt>smoothing_kernel_size<span class="classifier">int, optional</span></dt><dd><p>FWHM smoothing kernel size in millimeters. Only relevant if <cite>perform_cleaning</cite>
+is True. If None, no spatial smoothing.</p>
+</dd>
+<dt>left_surface_template<span class="classifier">str</span></dt><dd><p>Absolute path to the left hemisphere GIFTI surface file (e.g., a FreeSurfer
+<cite>fsaverage</cite>/<cite>conte69</cite> surface, or HCP-Minn <cite>fs_LR.32k</cite> surface).
+Required for smoothing if <cite>smoothing_kernel_size</cite> is provided.</p>
+</dd>
+<dt>right_surface_template<span class="classifier">str</span></dt><dd><p>Absolute path to the right hemisphere GIFTI surface file, similar to <cite>left_surface_template</cite>.
+Required for smoothing if <cite>smoothing_kernel_size</cite> is provided.</p>
+</dd>
+<dt>statistical_significance_testing<span class="classifier">bool, optional</span></dt><dd><p>If True, <cite>get_significant_model_scores</cite> will be used to identify and plot
+only statistically significant voxels. If False, the averaged scores
+(<cite>render_averaged_scores</cite>) will be plotted. Defaults to True.</p>
+</dd>
+<dt>significance_alpha<span class="classifier">float, optional</span></dt><dd><p>The significance level (alpha) for FDR correction during statistical
+testing. Only relevant if <cite>statistical_significance_testing</cite> is True.
+Defaults to 0.05.</p>
+</dd>
+<dt>plot_threshold<span class="classifier">Union[float, str], optional</span></dt><dd><p>Threshold for displaying values on the brain surface maps. Can be a percentage
+string (e.g., “90%”) or a float (e.g., 0.1). Defaults to “90%”.</p>
+</dd>
+<dt>pipeline_title<span class="classifier">str, optional</span></dt><dd><p>A general title for the entire pipeline’s results, used in plots.
+Defaults to “Voxel-wise Modeling Results”.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>None</dt><dd><p>The function saves results (cleaned data, features, scores) to disk
+and displays interactive brain plots.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If required parameters for feature extraction are missing when
+<cite>precomputed_features_h5_path</cite> is None.
+If <cite>perform_cleaning</cite> is True but <cite>left_surface_template</cite> or
+<cite>right_surface_template</cite> are not provided.</p>
+</dd>
+<dt>FileNotFoundError</dt><dd><p>If specified paths (e.g., <cite>bids_data_root_dir</cite>, <cite>stimuli_base_dir</cite>,
+surface templates) do not exist.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
 </section>
 <section id="example-usage">
 <h2>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading">¶</a></h2>
@@ -388,7 +503,10 @@ print(“Full pipeline execution completed successfully. Check output directory 
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Full Unified Voxel-wise Modeling Pipeline</a><ul>
-<li><a class="reference internal" href="#function-reference">Function Reference</a></li>
+<li><a class="reference internal" href="#function-reference">Function Reference</a><ul>
+<li><a class="reference internal" href="#neursen_reveal.full_pipeline.run_full_voxelwise_pipeline"><code class="docutils literal notranslate"><span class="pre">run_full_voxelwise_pipeline()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#example-usage">Example Usage</a></li>
 </ul>
 </li>
