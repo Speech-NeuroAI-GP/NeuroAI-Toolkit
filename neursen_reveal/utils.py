@@ -395,7 +395,7 @@ def get_subjects_results(results_dir: str) -> dict[str, np.ndarray]:
 
     return subjects_scores
 
-def render_brain_sufrace(ddata_path: str, title: str ):
+def render_brain_sufrace(data_path: str, title: str ):
         """
        Renders the middle time point (TR) of BOLD data onto an inflated brain surface
        using `nilearn.plotting.view_surf`.
@@ -417,6 +417,7 @@ def render_brain_sufrace(ddata_path: str, title: str ):
         nilearn.plotting.html_view.HTMLView
             An interactive HTML viewer object of the brain surface plot.
         """
+        data= nib.load(data_path)
         data = data.copy()
         data= data[int(data.shape[0]/2)]
         view= plotting.view_surf(
