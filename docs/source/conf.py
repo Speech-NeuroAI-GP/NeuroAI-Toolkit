@@ -86,6 +86,14 @@ html_theme = 'furo' # A modern, clean Sphinx theme (pip install furo)
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
+html_theme_options = {
+    # ... any other Furo options you have ...
+    "extra_navbar_links": [
+        {
+            "title": "Third-Party Licenses",
+            "url": "third_party_licenses.html",
+        },
+    ]
+}
 # You might want to add a logo
 # html_logo = '_static/your_logo.png' # Place your logo image in docs/source/_static/

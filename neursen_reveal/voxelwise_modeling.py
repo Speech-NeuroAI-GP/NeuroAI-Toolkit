@@ -3,15 +3,10 @@ import matplotlib.pyplot as plt
 import joblib
 from sklearn.model_selection import check_cv
 from sklearn.preprocessing import StandardScaler
-from voxelwise_tutorials.delayer import Delayer
-from voxelwise_tutorials.utils import generate_leave_one_run_out
-from himalaya.kernel_ridge import KernelRidgeCV
-from himalaya.backend import set_backend
+from neursen_reveal.external_packages import himalaya
+from neursen_reveal.external_packages import voxelwise_tutorials
 from sklearn.pipeline import make_pipeline
-from himalaya.viz import plot_alphas_diagnostic
 from sklearn import set_config
-from voxelwise_tutorials.utils import explainable_variance
-import scipy.stats
 import nilearn.plotting as plotting
 import hcp_utils as hcp
 import random
@@ -77,12 +72,12 @@ class VoxelWiseModeler:
         self.model_path = model_path
 
         # Set backend (e.g., for GPU support)
-        self.backend = set_backend(backend_name, on_error="warn")
+        self.backend = himalaya.set_backend(backend_name, on_error="warn")
 
         # Initialize components
         self.feature_scaler = StandardScaler()
-        self.delayer = Delayer(delays=self.delays)
-        self.kernel_ridge_cv = KernelRidgeCV(
+        self.delayer = voxelwise_tutorials.Delayer(delays=self.delays)
+        self.kernel_ridge_cv = himalaya.KernelRidgeCV(
             alphas=self.alphas,
             solver_params={
                 'n_targets_batch': 500,
@@ -134,7 +129,7 @@ class VoxelWiseModeler:
         
         # Setup cross-validation
         n_samples_train = X_train_selected.shape[0]
-        cv = generate_leave_one_run_out(n_samples_train, train_run_onsets, random_state = random_state, n_runs_out = n_runs_out)
+        cv = voxelwise_tutorials.generate_leave_one_run_out(n_samples_train, train_run_onsets, random_state = random_state, n_runs_out = n_runs_out)
         cv = check_cv(cv)
 
         # Create pipeline
@@ -177,23 +172,6 @@ class VoxelWiseModeler:
             np.save(scores_file, scores)
         return scores
 
-    def plot_best_alphas_distribution(self):
-        """
-        Plots a histogram of the best alpha values (regularization strengths)
-        chosen for each voxel during the cross-validation fitting process.
-
-        This helps in diagnosing whether the chosen alpha range is appropriate
-        and if regularization is consistently applied across voxels.
-
-        Raises
-        ------
-        RuntimeError
-            If the model has not been fitted (`fit` method not called previously).
-        """
-        if self.pipeline is None:
-            raise RuntimeError("Model must be fitted first to plot best alphas. Call `fit()` first.")
-        best_alphas = self.backend.to_numpy(self.pipeline[-1].best_alphas_)
-        plot_alphas_diagnostic(best_alphas=best_alphas, alphas=self.alphas)
 
 
     def report_scores_stats(self, scores: np.ndarray):
@@ -272,7 +250,7 @@ class VoxelWiseModeler:
             A NumPy array of explainable variance values for each voxel.
             Shape: `(n_voxels,)`.
         """
-        ev = explainable_variance(stacked_runs)
+        ev = voxelwise_tutorials.explainable_variance(stacked_runs)
         if np.any(np.isnan(ev)):
             print("There are NaNs in the computed explainable variance!")
             ev = np.nan_to_num(ev, nan=0)

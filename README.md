@@ -40,6 +40,11 @@ To view the full documentation, including detailed API references and examples:
       Alternatively, you can navigate to the `_build/html` folder using your file browser and double-click `index.html`.
 
 
+## Third-Party Licenses
+
+This project includes code derived from the `himalaya` and `voxelwise_tutorials` projects. These components are distributed under the permissive **BSD 3-Clause License**. We are grateful to the original developers for their contributions.
+
+For the full license text and copyright notices, please refer to the [THIRD-PARTY LICENSES file](LICENSE_THIRD_PARTY.txt) at the root of this repository.
 
 ## 📄 License
 

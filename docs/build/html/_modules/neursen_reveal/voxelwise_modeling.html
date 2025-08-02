@@ -258,15 +258,10 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_cv</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="c1"># from voxelwise_tutorials.delayer import Delayer</span>
-<span class="c1"># from voxelwise_tutorials.utils import generate_leave_one_run_out</span>
-<span class="c1"># from himalaya.kernel_ridge import KernelRidgeCV</span>
-<span class="c1"># from himalaya.backend import set_backend</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neursen_reveal.external_packages</span><span class="w"> </span><span class="kn">import</span> <span class="n">himalaya</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neursen_reveal.external_packages</span><span class="w"> </span><span class="kn">import</span> <span class="n">voxelwise_tutorials</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="c1"># from himalaya.viz import plot_alphas_diagnostic</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_config</span>
-<span class="c1"># from voxelwise_tutorials.utils import explainable_variance</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">nilearn.plotting</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plotting</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">hcp_utils</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hcp</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
@@ -332,12 +327,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">model_path</span>
 
         <span class="c1"># Set backend (e.g., for GPU support)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="n">set_backend</span><span class="p">(</span><span class="n">backend_name</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="n">himalaya</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">backend_name</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
 
         <span class="c1"># Initialize components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">feature_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">delayer</span> <span class="o">=</span> <span class="n">Delayer</span><span class="p">(</span><span class="n">delays</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delays</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_ridge_cv</span> <span class="o">=</span> <span class="n">KernelRidgeCV</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delayer</span> <span class="o">=</span> <span class="n">voxelwise_tutorials</span><span class="o">.</span><span class="n">Delayer</span><span class="p">(</span><span class="n">delays</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delays</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_ridge_cv</span> <span class="o">=</span> <span class="n">himalaya</span><span class="o">.</span><span class="n">KernelRidgeCV</span><span class="p">(</span>
             <span class="n">alphas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span>
             <span class="n">solver_params</span><span class="o">=</span><span class="p">{</span>
                 <span class="s1">&#39;n_targets_batch&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
@@ -389,7 +384,7 @@
         
         <span class="c1"># Setup cross-validation</span>
         <span class="n">n_samples_train</span> <span class="o">=</span> <span class="n">X_train_selected</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">cv</span> <span class="o">=</span> <span class="n">generate_leave_one_run_out</span><span class="p">(</span><span class="n">n_samples_train</span><span class="p">,</span> <span class="n">train_run_onsets</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">n_runs_out</span> <span class="o">=</span> <span class="n">n_runs_out</span><span class="p">)</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">voxelwise_tutorials</span><span class="o">.</span><span class="n">generate_leave_one_run_out</span><span class="p">(</span><span class="n">n_samples_train</span><span class="p">,</span> <span class="n">train_run_onsets</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">n_runs_out</span> <span class="o">=</span> <span class="n">n_runs_out</span><span class="p">)</span>
         <span class="n">cv</span> <span class="o">=</span> <span class="n">check_cv</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>
 
         <span class="c1"># Create pipeline</span>
@@ -432,23 +427,6 @@
             <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">scores_file</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">scores</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot_best_alphas_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Plots a histogram of the best alpha values (regularization strengths)</span>
-<span class="sd">        chosen for each voxel during the cross-validation fitting process.</span>
-
-<span class="sd">        This helps in diagnosing whether the chosen alpha range is appropriate</span>
-<span class="sd">        and if regularization is consistently applied across voxels.</span>
-
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        RuntimeError</span>
-<span class="sd">            If the model has not been fitted (`fit` method not called previously).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Model must be fitted first to plot best alphas. Call `fit()` first.&quot;</span><span class="p">)</span>
-        <span class="n">best_alphas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">best_alphas_</span><span class="p">)</span>
-        <span class="n">plot_alphas_diagnostic</span><span class="p">(</span><span class="n">best_alphas</span><span class="o">=</span><span class="n">best_alphas</span><span class="p">,</span> <span class="n">alphas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphas</span><span class="p">)</span>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">report_scores_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scores</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
@@ -527,7 +505,7 @@
 <span class="sd">            A NumPy array of explainable variance values for each voxel.</span>
 <span class="sd">            Shape: `(n_voxels,)`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ev</span> <span class="o">=</span> <span class="n">explainable_variance</span><span class="p">(</span><span class="n">stacked_runs</span><span class="p">)</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="n">voxelwise_tutorials</span><span class="o">.</span><span class="n">explainable_variance</span><span class="p">(</span><span class="n">stacked_runs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ev</span><span class="p">)):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are NaNs in the computed explainable variance!&quot;</span><span class="p">)</span>
             <span class="n">ev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
