@@ -395,3 +395,37 @@ def get_subjects_results(results_dir: str) -> dict[str, np.ndarray]:
 
     return subjects_scores
 
+def render_brain_sufrace(ddata_path: str, title: str ):
+        """
+       Renders the middle time point (TR) of BOLD data onto an inflated brain surface
+       using `nilearn.plotting.view_surf`.
+
+        This function assumes `hcp_utils` is configured correctly to provide
+        mesh data (`hcp.mesh.inflated`, `hcp.mesh.sulc`) and cortex data.
+
+        Parameters
+        ----------
+         data_path : str
+            A string path to the BOLD data file (e.g., a NIfTI file). The function
+            will load the data from this path and then plot the middle time point (TR).
+            The expected data shape after loading is `(n_TRs, n_voxels)`.
+        title : str, 
+            Title for the rendered brain plot.
+
+        Returns
+        -------
+        nilearn.plotting.html_view.HTMLView
+            An interactive HTML viewer object of the brain surface plot.
+        """
+        data = data.copy()
+        data= data[int(data.shape[0]/2)]
+        view= plotting.view_surf(
+            hcp.mesh.inflated,
+            hcp.cortex_data(data),
+            title= title,
+            cmap='Reds',
+            symmetric_cmap=False,
+            vmin= 0,
+            bg_map=hcp.mesh.sulc
+            )
+        return view
