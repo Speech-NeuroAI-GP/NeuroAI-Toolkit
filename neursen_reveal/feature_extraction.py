@@ -24,7 +24,6 @@ def _get_model_and_processor(model_id: str, checkpoint: str = None):
     """
     cache_key = f"{model_id}_{checkpoint}"
     if cache_key in _MODEL_CACHE:
-        print("here")
         return _MODEL_CACHE[cache_key]
 
     print(f"Loading {model_id} model and processor (checkpoint: {checkpoint})...")
