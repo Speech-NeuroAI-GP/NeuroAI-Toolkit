@@ -599,9 +599,9 @@ def render_scores(scores: np.ndarray, threshold: str = "90%", title: str = "Rend
             An interactive HTML viewer object of the brain surface plot.
         """
         data = scores.copy()
-        if threshold is str:
-            threshold= int(threshold.replace("%", ''))
-            threshold = np.percentile(data, threshold)
+        if isinstance(threshold, str):
+            percentile = int(threshold.replace("%", ''))
+            threshold = np.percentile(data, percentile)
         else:
             threshold = threshold
         view= plotting.view_surf(
