@@ -266,7 +266,8 @@ def generate_legend(colors: List[Union[str, np.ndarray]], labels: List[str]) -> 
 
 def plot_parcellation_of_peak_intensity_regions(
     data: np.ndarray, 
-    threshold: Union[float, str] = 0
+    threshold: Union[float, str] = 0,
+    title: str = "Parcellation results"
 ) -> Any: # Returns a nilearn.plotting.html_surface.HTMLSurface object
   """
     Visualizes brain regions with activity (or scores) above a specified threshold
@@ -292,6 +293,8 @@ def plot_parcellation_of_peak_intensity_regions(
           percentile. The threshold will be calculated as the `threshold`-th
           percentile of the input `data`.
         Defaults to 0.
+    title : str, optional
+            Title for the rendered brain plot.
 
     Returns
     -------
@@ -385,13 +388,13 @@ def plot_parcellation_of_peak_intensity_regions(
     'default_mode_C': default_mode_C,
     'subcortical': subcortical,
 }
-  if threshold is str:
+  if isinstance(threshold, str):
     threshold= int(threshold.replace("%", ''))
     threshold = np.percentile(data, threshold)
   else:
     threshold = threshold
 
-  data[data< threshold]=0
+  data[data < threshold]=0
   indices= np.where(data > threshold)[0]
   areas={}
   for index in indices:
@@ -417,7 +420,7 @@ def plot_parcellation_of_peak_intensity_regions(
     hcp.cortex_data(data),
     cmap=custom_cmap,
     colorbar= True,
-    title= "Significant Voxels (>0):ECAPA",
+    title= title,
     symmetric_cmap=False,
     bg_map=hcp.mesh.sulc)
 
