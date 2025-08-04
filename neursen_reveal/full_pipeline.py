@@ -32,9 +32,10 @@ def run_full_voxelwise_pipeline(
     significance_alpha: float = 0.05,
     plot_threshold: Union[float, str] = "90%",
     pipeline_title: str = "Voxel-wise Modeling Results"
-) -> None:
+) -> Tuple[HTMLView, HTMLView]:
     """
-    Executes a comprehensive fMRI voxel-wise modeling pipeline.
+    Executes a comprehensive fMRI voxel-wise modeling pipeline and returns
+    the generated interactive brain plots.
 
     This function orchestrates a multi-stage process:
     1. **Optional Data Cleaning:** Applies confound regression and/or spatial smoothing
@@ -45,9 +46,7 @@ def run_full_voxelwise_pipeline(
        across subjects using `generate_scores_for_specific_model_across_subjects`.
     4. **Statistical Significance Testing (Conditional):** If enabled, it identifies
        statistically significant voxels using `get_significant_model_scores`.
-    5. **Visualization:** Renders brain maps of the results onto an inflated surface,
-       either showing significant regions parcellated by network or averaged scores,
-       and also provides a general rendering of the scores.
+    5. **Visualization:** Renders brain maps of the results onto an inflated surface.
 
     Parameters
     ----------
@@ -121,10 +120,10 @@ def run_full_voxelwise_pipeline(
 
     Returns
     -------
-    None
-        The function saves results (cleaned data, features, scores) to disk
-        and displays interactive brain plots.
-
+    Tuple[nilearn.plotting.html_view.HTMLView, nilearn.plotting.html_view.HTMLView]
+        A tuple containing two interactive HTML viewer objects:
+        - The first element is the `HTMLView` of the rendered surface plot.
+        - The second element is the `HTMLView` of the parcellation plot.
     Raises
     ------
     ValueError
@@ -274,7 +273,7 @@ def run_full_voxelwise_pipeline(
 
             print(f"  Rendering significant scores on surface (threshold: {plot_threshold})...")
             # render_scores expects a single scores array
-            rendered_significant_view = render_scores(
+            scores_view = render_scores(
                 scores=significant_scores_map,
                 threshold=plot_threshold,
                 title=f"{pipeline_title} - Significant Scores (alpha={significance_alpha})"
@@ -292,7 +291,7 @@ def run_full_voxelwise_pipeline(
         # It also implicitly saves an 'average_scores.npy' in the results_dir.
         try:
             print(f"  Rendering averaged scores on surface (threshold: {plot_threshold})...")
-            averaged_rendered_view = render_averaged_scores(
+            scores_view = render_averaged_scores(
                 data_dir=model_results_specific_dir,
                 threshold=plot_threshold,
                 title=f"{pipeline_title} - Averaged R-squared Scores"
@@ -305,7 +304,7 @@ def run_full_voxelwise_pipeline(
             if os.path.exists(average_scores_path):
                 averaged_scores_data = np.load(average_scores_path)
                 print(f"  Plotting averaged regions parcellated by network (threshold: {plot_threshold})...")
-                parcellated_averaged_view = plot_parcellation_of_peak_intensity_regions(
+                parcellated_view = plot_parcellation_of_peak_intensity_regions(
                     data=averaged_scores_data,
                     threshold=plot_threshold
                 )
@@ -322,3 +321,4 @@ def run_full_voxelwise_pipeline(
 
     print(f"\n--- Full Voxel-wise Modeling Pipeline Finished for: {pipeline_title} ---")
     print(f"All results saved in: {output_base_dir}")
+    return scores_view, parcellated_view
