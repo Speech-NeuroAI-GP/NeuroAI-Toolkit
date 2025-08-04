@@ -582,7 +582,7 @@ def render_scores(scores: np.ndarray, threshold: str = "90%", title: str = "Rend
             threshold = np.percentile(data, percentile)
         else:
             threshold = threshold
-        if threshold >0: 
+        if threshold >= 0: 
             data[data < threshold]= 0
             view= plotting.view_surf(
                 hcp.mesh.inflated,
