@@ -24,7 +24,6 @@ def _get_model_and_processor(model_id: str, checkpoint: str = None):
     """
     cache_key = f"{model_id}_{checkpoint}"
     if cache_key in _MODEL_CACHE:
-        print("here")
         return _MODEL_CACHE[cache_key]
 
     print(f"Loading {model_id} model and processor (checkpoint: {checkpoint})...")
@@ -401,8 +400,6 @@ def extract_features(
                             except Exception as e:
                                 print(f"Error processing image file {stim_file_path}: {e}. Skipping event.")
                                 continue
-                            print(f"Warning: Image processing for '{model_id}' is a placeholder. Skipping image event.")
-                            continue
                         else:
                             print(f"Warning: Unsupported stimulus file type: {stim_file_path}. Skipping event.")
                             continue
@@ -438,8 +435,6 @@ def extract_features(
             task= hf.create_group(functional_run_name)
             task.create_dataset("feature_matrix", data=feature_matrix)
             print(f"Successfully processed and saved features for '{functional_run_name}' with shape {feature_matrix.shape}.")
-        else:
-            print(f"No features extracted for functional run '{functional_run_name}'. Not saving.")
 
     print(f"\nFeature extraction complete. Output saved to: {output_file_path}")
     

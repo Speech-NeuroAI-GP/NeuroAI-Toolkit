@@ -577,21 +577,33 @@ def render_scores(scores: np.ndarray, threshold: str = "90%", title: str = "Rend
             An interactive HTML viewer object of the brain surface plot.
         """
         data = scores.copy()
-        if threshold is str:
-            threshold= int(threshold.replace("%", ''))
-            threshold = np.percentile(data, threshold)
+        if isinstance(threshold, str):
+            percentile = int(threshold.replace("%", ''))
+            threshold = np.percentile(data, percentile)
         else:
             threshold = threshold
-        view= plotting.view_surf(
+        if threshold >0: 
+            view= plotting.view_surf(
+                hcp.mesh.inflated,
+                hcp.cortex_data(data),
+                title= title,
+                cmap='Reds',
+                symmetric_cmap=False,
+                vmin= threshold,
+                bg_map=hcp.mesh.sulc
+                )
+            return view
+        else:
+            threshold= abs(threshold)
+            plotting.view_surf(
             hcp.mesh.inflated,
             hcp.cortex_data(data),
             title= title,
             cmap='Reds',
-            symmetric_cmap=False,
-            vmin= threshold,
-            bg_map=hcp.mesh.sulc
-            )
-        return view
+            symmetric_cmap=True,
+            threshold= threshold,
+            bg_map=hcp.mesh.sulc)
+            return view
 
 
 
