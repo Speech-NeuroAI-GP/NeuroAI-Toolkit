@@ -583,6 +583,7 @@ def render_scores(scores: np.ndarray, threshold: str = "90%", title: str = "Rend
         else:
             threshold = threshold
         if threshold >0: 
+            data[data < threshold]= 0
             view= plotting.view_surf(
                 hcp.mesh.inflated,
                 hcp.cortex_data(data),
