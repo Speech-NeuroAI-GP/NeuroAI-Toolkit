@@ -229,7 +229,7 @@ def parcellate_brain_by_network(network):
     raise ValueError("Invalid network.")
   return mask
 
-def generate_legend(colors: List[Union[str, np.ndarray]], labels: List[str]) -> None:
+def generate_legend(colors: List[Union[str, np.ndarray]], labels: List[str]) -> tuple:
   """
       Generates and displays a custom matplotlib legend based on provided colors and labels.
 
@@ -248,27 +248,27 @@ def generate_legend(colors: List[Union[str, np.ndarray]], labels: List[str]) -> 
           The order of `labels` must match the order of `colors`.
 
       Returns
-      -------
-      None
-          Displays a matplotlib figure containing the legend. The figure is not
-          returned as an object.
+    -------
+    Tuple[matplotlib.figure.Figure, matplotlib.axes.Axes]
+        A tuple containing the Matplotlib Figure and Axes objects of the generated legend.
+        These can be displayed or saved as needed.
   """
   legend_elements = [Patch(facecolor=color, edgecolor='black', label=label)
                    for color, label in zip(colors, labels)]
 
-  _, ax = plt.subplots(figsize=(8, 2))
+  fig, ax = plt.subplots(figsize=(8, 2))
   ax.axis('off')
 
   ax.legend(handles=legend_elements, loc='center', ncol=5, frameon=False)
 
-  plt.show()
+  return fig, ax
 
 
 def plot_parcellation_of_peak_intensity_regions(
     data: np.ndarray, 
     threshold: Union[float, str] = 0,
     title: str = "Parcellation results"
-) -> Any: # Returns a nilearn.plotting.html_surface.HTMLSurface object
+) -> tuple: # Returns a nilearn.plotting.html_surface.HTMLSurface object
   """
     Visualizes brain regions with activity (or scores) above a specified threshold
     by mapping them onto a cortical surface and coloring them according to their
@@ -298,9 +298,11 @@ def plot_parcellation_of_peak_intensity_regions(
 
     Returns
     -------
-    nilearn.plotting.html_surface.HTMLSurface
-        A NiLearn `HTMLSurface` object, which can be displayed in a Jupyter
-        notebook or saved as an HTML file, showing the parcellated brain regions.
+    Tuple[nilearn.plotting.html_surface.HTMLSurface, matplotlib.figure.Figure, matplotlib.axes.Axes]
+        A tuple containing:
+        - The NiLearn `HTMLSurface` object of the parcellated brain regions.
+        - The Matplotlib Figure object of the generated legend.
+        - The Matplotlib Axes object of the generated legend.
   """
   yan_kong17 = hcp.load_hcp_parcellation('yan_kong17', resolution=1000)
   data = data.copy()
@@ -411,7 +413,7 @@ def plot_parcellation_of_peak_intensity_regions(
       continue
     data[areas[key]]= index +1
     colors.append(yan_kong17.rgba[yan_kong17.map_all[areas[key][0]]])
-  generate_legend(colors, areas.keys())
+  legend_fig, legend_ax =generate_legend(colors, areas.keys())
   light_gray = [0.85, 0.85, 0.85, 1.0]
   colors = np.vstack([light_gray, colors])
   custom_cmap = ListedColormap(colors)
@@ -424,5 +426,5 @@ def plot_parcellation_of_peak_intensity_regions(
     symmetric_cmap=False,
     bg_map=hcp.mesh.sulc)
 
-  return view
+  return legend_fig, legend_ax, view
 

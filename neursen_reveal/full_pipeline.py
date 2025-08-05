@@ -32,7 +32,7 @@ def run_full_voxelwise_pipeline(
     significance_alpha: float = 0.05,
     plot_threshold: Union[float, str] = "90%",
     pipeline_title: str = "Voxel-wise Modeling Results"
-) -> Tuple[HTMLView, HTMLView]:
+) -> tuple:
     """
     Executes a comprehensive fMRI voxel-wise modeling pipeline and returns
     the generated interactive brain plots.
@@ -148,10 +148,6 @@ def run_full_voxelwise_pipeline(
                 "are required for cleaning with smoothing."
             )
         print(f"\n--- Step 1: Performing BOLD Data Cleaning ---")
-        print(f"  Input BOLD data from: {bids_data_root_dir}")
-        print(f"  Saving cleaned data to: {cleaned_output_dir}")
-        print(f"  Confounds selected: {selected_confounds}")
-        print(f"  Smoothing kernel: {smoothing_kernel_size} mm FWHM")
 
         os.makedirs(cleaned_output_dir, exist_ok=True)
         try:
