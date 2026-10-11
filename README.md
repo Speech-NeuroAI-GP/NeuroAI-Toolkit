@@ -2,12 +2,16 @@
 
 ![NeurSen Reveal Logo/Banner - Placeholder Image](https://github.com/Speech-NeuroAI-GP/NeuroAI-Toolkit/main/assets/neursen_reveal_banner.png) 
 
-
 ---
 
 # NeuroAI-Toolkit
 
-A powerful Python package designed to bridge the gap between cutting-edge Artificial Intelligence models and intricate neuroimaging data.
+An open-source Python framework for linking foundation AI models with neuroimaging data, enabling the systematic evaluation of speech and vision representations against human brain activity.
+
+## Pipeline Example (Audition)
+
+![Computational Audition Pipeline](/Figs/Analysis_pipeline.png) 
+
 
 ## Documentation
 
